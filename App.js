@@ -640,18 +640,26 @@ const getGameData = function (gameCode, onChangeText4, onChangecardLeft1, onChan
             if (undefined === json['playerInfoDTOS']) {
                 return;
             }
-            var x1 = json['playerInfoDTOS'][0]['cardsLeft'];
-            var x2 = json['playerInfoDTOS'][1]['cardsLeft'];
-            var x3 = json['playerInfoDTOS'][2]['cardsLeft'];
-            var x4 = json['playerInfoDTOS'][3]['cardsLeft'];
-            onChangecardLeft1(x1);
-            onChangecardLeft2(x2);
-            onChangecardLeft3(x3);
-            onChangecardLeft4(x4);
-            onChangesetsWon1(json['playerInfoDTOS'][0]['setsWon']);
-            onChangesetsWon2(json['playerInfoDTOS'][1]['setsWon']);
-            onChangesetsWon3(json['playerInfoDTOS'][2]['setsWon']);
-            onChangesetsWon4(json['playerInfoDTOS'][3]['setsWon']);
+            if (undefined !== json['playerInfoDTOS'][0]) {
+                var x1 = json['playerInfoDTOS'][0]['cardsLeft'];
+                onChangecardLeft1(x1);
+                onChangesetsWon1(json['playerInfoDTOS'][0]['setsWon']);
+            }
+            if (undefined !== json['playerInfoDTOS'][1]['setsWon']) {
+                var x2 = json['playerInfoDTOS'][1]['cardsLeft'];
+                onChangesetsWon2(json['playerInfoDTOS'][1]['setsWon']);
+                onChangecardLeft2(x2);
+            }
+            if (json['playerInfoDTOS'][2] !== undefined) {
+                var x3 = json['playerInfoDTOS'][2]['cardsLeft'];
+                onChangesetsWon3(json['playerInfoDTOS'][2]['setsWon']);
+                onChangecardLeft3(x3);
+            }
+            if (json['playerInfoDTOS'][3] !== undefined) {
+                var x4 = json['playerInfoDTOS'][3]['cardsLeft'];
+                onChangesetsWon4(json['playerInfoDTOS'][3]['setsWon']);
+                onChangecardLeft4(x4);
+            }
             onChangePlayerToMove(json['playerToMove']);
             onChangeTrumpDeclaredBy(json['trumpDeclaredBy']);
             onChangeCanGameBeStarted(json['canGameBeStarted']);
