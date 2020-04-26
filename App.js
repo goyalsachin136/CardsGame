@@ -20,7 +20,7 @@ function Separator() {
 
 function subscribeAndBind(gameCode,playerCode, onChangeText4,
                           onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                          onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                          onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                           onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                           onChangeCurrentSet, setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                           onChangeClubData) {
@@ -29,7 +29,7 @@ function subscribeAndBind(gameCode,playerCode, onChangeText4,
     channel.bind('move-event', function(data) {
         getGameData(gameCode, onChangeText4,
             onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
             onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing
         );
     });
@@ -37,14 +37,14 @@ function subscribeAndBind(gameCode,playerCode, onChangeText4,
     channel.bind('open-trump', function(data) {
         getGameData(gameCode, onChangeText4,
             onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
             onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing
         );
     });
     channel.bind('set-trump', function(data) {
         getGameData(gameCode, onChangeText4,
             onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
             onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing
         );
     });
@@ -52,7 +52,7 @@ function subscribeAndBind(gameCode,playerCode, onChangeText4,
         if (playerCode !== undefined || playerCode !== null || playerCode !== '') {
             getPlayerData(playerCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                 onChangeClubData)
         }
@@ -60,14 +60,14 @@ function subscribeAndBind(gameCode,playerCode, onChangeText4,
     channel.bind('player-entered', function(data) {
         getGameData(gameCode, onChangeText4,
             onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
             onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing
         );
     });
     channel.bind('open-trump', function(data) {
         getGameData(gameCode, onChangeText4,
             onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
             onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing
         );
     });
@@ -89,6 +89,8 @@ export default function App() {
     const [setsWon2, onChangesetsWon2] = React.useState('');
     const [setsWon3, onChangesetsWon3] = React.useState('');
     const [setsWon4, onChangesetsWon4] = React.useState('');
+    //onChangesetsWon4
+
     const [playerToMove, onChangePlayerToMove] = React.useState('');
     const [numberOfCardsPerPerson, onChangeCardsPerPerson] = React.useState('');
     const [cardNumber, onChangeCardNumber] = React.useState('');
@@ -110,12 +112,17 @@ export default function App() {
 
     const [refreshing, setRefreshing] = React.useState(false);
 
+    const [pointsWon1, onChangesetsPointsWon1] = React.useState('');
+    const [pointsWon2, onChangesetsPointsWon2] = React.useState('');
+    const [pointsWon3, onChangesetsPointsWon3] = React.useState('');
+    const [pointsWon4, onChangesetsPointsWon4] = React.useState('');
+
     const onRefresh = function() {
         console.log("onRefresh called");
         setRefreshing(true);
         getGameData(gameCode, onChangeText4,
             onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
             onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing);
     };
     console.ignoredYellowBox = ['Remote debugger'];
@@ -159,7 +166,7 @@ export default function App() {
                     onPress={() => {generateGame(totalNumberOfCards, numberOfPlayers, onChangeText1,
                         onChangeText4,
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet,
                         setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData)}}
                 />) : null }
@@ -207,7 +214,7 @@ export default function App() {
                     onPress={() => generatePlayerCode(playerNumericCode, gameCode, onChangeText3,
                         onChangeText4,
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                         onChangeCurrentSet, setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                         onChangeClubData)}
@@ -225,7 +232,7 @@ export default function App() {
                     color="#f194ff"
                     onPress={() => getGameData(gameCode, onChangeText4,
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing)}
                 />
                 {canGameBeStarted ? null :
@@ -245,7 +252,7 @@ export default function App() {
                     onPress={() => distributeCards( numberOfCardsPerPerson, gameCode, playerCode,
                         onChangeText4, onChangecardLeft1, onChangecardLeft2,
                         onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
-                        onChangesetsWon3, onChangesetsWon4, onChangePlayerToMove, onChangeTrumpDeclaredBy,
+                        onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove, onChangeTrumpDeclaredBy,
                         onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                         onChangeClubData)}
                 />}
@@ -273,7 +280,7 @@ export default function App() {
                     onPress={() => setTrump( trump, playerCode , gameCode,
                         onChangeText4, onChangecardLeft1, onChangecardLeft2,
                         onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
-                        onChangesetsWon3, onChangesetsWon4, onChangePlayerToMove,
+                        onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove,
                         onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing)}
                 />}
             </View>
@@ -308,7 +315,7 @@ export default function App() {
                 color="#f194ff"
                 onPress={() => getPlayerData(playerCode, onChangeText4,
                     onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                    onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                    onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                     onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                     onChangeClubData)}
             />
@@ -330,23 +337,23 @@ export default function App() {
                     color="#f194ff"
                     onPress={() => moveCard( cardNumber, playerCode, gameCode,onChangeText4,
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
                         onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                         onChangeClubData)}
                 />
                 : null}
             <Text style={styles.title}>
-                Player 1 card left {cardLeft1} sets won {setsWon1}
+                Player 1 card left {cardLeft1} sets won {setsWon1} points {pointsWon1}
             </Text>
             <Text style={styles.title}>
-                Player 2 card left {cardLeft2} sets won {setsWon2}
+                Player 2 card left {cardLeft2} sets won {setsWon2} points {pointsWon2}
             </Text>
             <Text style={styles.title}>
-                Player 3 card left {cardLeft3} sets won {setsWon3}
+                Player 3 card left {cardLeft3} sets won {setsWon3} points {pointsWon3}
             </Text>
             <Text style={styles.title}>
-                Player 4 card left {cardLeft4} sets won {setsWon4}
+                Player 4 card left {cardLeft4} sets won {setsWon4} points {pointsWon4}
             </Text>
             {trumpCard === undefined || trumpCard === '' || trumpCard === null ?
             <Button
@@ -354,7 +361,7 @@ export default function App() {
                 color="#f194ff"
                 onPress={() => openTrump( playerCode, gameCode,onChangeText4,
                     onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                    onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                    onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                     onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing)}
             />: null}
         </SafeAreaView>
@@ -378,7 +385,7 @@ const getCardFromCardType = function (cardType) {
 const openTrump = function (playerCode, gameCode,
                            onChangeText4, onChangecardLeft1, onChangecardLeft2,
                            onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
-                           onChangesetsWon3, onChangesetsWon4, onChangePlayerToMove,
+                           onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove,
                            onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing) {
     fetch('https://6213a4d0.ngrok.io//demo/openTrump?gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
@@ -392,7 +399,7 @@ const openTrump = function (playerCode, gameCode,
             Alert.alert(json['message']);
             getGameData(gameCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing);
         })
         .catch(error => {
@@ -402,7 +409,7 @@ const openTrump = function (playerCode, gameCode,
 
 const moveCard = function (card, playerCode, gameCode,onChangeText4,
                            onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                           onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                           onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                            onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                            onChangeCurrentSet, setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                            onChangeClubData) {
@@ -419,11 +426,11 @@ const moveCard = function (card, playerCode, gameCode,onChangeText4,
             Alert.alert(json['message']);
             getGameData(gameCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing);
             getPlayerData(playerCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                 onChangeClubData)
         })
@@ -435,7 +442,7 @@ const moveCard = function (card, playerCode, gameCode,onChangeText4,
 const setTrump = function (trump, playerCode, gameCode,
                                   onChangeText4, onChangecardLeft1, onChangecardLeft2,
                                   onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
-                                  onChangesetsWon3, onChangesetsWon4, onChangePlayerToMove,
+                                  onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove,
                            onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing) {
     //console.log("trump " + trump);
     if (undefined === trump || null === trump) {
@@ -459,7 +466,7 @@ const setTrump = function (trump, playerCode, gameCode,
             Alert.alert(json['message']);
             getGameData(gameCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing);
         })
         .catch(error => {
@@ -470,7 +477,7 @@ const setTrump = function (trump, playerCode, gameCode,
 const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
                                   onChangeText4, onChangecardLeft1, onChangecardLeft2,
                                   onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
-                                  onChangesetsWon3, onChangesetsWon4, onChangePlayerToMove,
+                                  onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove,
                                   onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
                                   onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                                   onChangeClubData) {
@@ -502,11 +509,11 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
             Alert.alert(json['message']);
             getGameData(gameCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing);
             getPlayerData(playerCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                 onChangeClubData)
         })
@@ -518,7 +525,7 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
 const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangeText1,
                                onChangeText4,
                                onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                               onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                               onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                                onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                                onChangeCurrentSet, setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                                onChangeClubData) {
@@ -549,7 +556,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangeText
             onChangeText1(json['message']);
             subscribeAndBind(json['message'],null, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet,
                 setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                 onChangeClubData);
@@ -584,9 +591,13 @@ const getCardSetStringList = function (array) {
 
 const getPlayerData = function (playerCode, onChangeText4, onChangecardLeft1, onChangecardLeft2,
                               onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
-                              onChangesetsWon3, onChangesetsWon4, onChangePlayerToMove,
+                              onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove,
                                 onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                                 onChangeClubData) {
+    console.log("getPlayerData " + playerCode);
+    if (playerCode === undefined || playerCode === null || playerCode === '') {
+        return;
+    }
     //console.log("playerCode " + playerCode);
     fetch('https://6213a4d0.ngrok.io//demo/playerState?playerCode='+playerCode, {
         method: 'GET',
@@ -618,7 +629,7 @@ const getPlayerData = function (playerCode, onChangeText4, onChangecardLeft1, on
 
 const getGameData = function (gameCode, onChangeText4, onChangecardLeft1, onChangecardLeft2,
                               onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
-                              onChangesetsWon3, onChangesetsWon4, onChangePlayerToMove, onChangeTrumpDeclaredBy,
+                              onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove, onChangeTrumpDeclaredBy,
                               onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet,setRefreshing) {
     console.log("getGameData called");
     //console.log("getGameData refresh called");
@@ -644,21 +655,25 @@ const getGameData = function (gameCode, onChangeText4, onChangecardLeft1, onChan
                 var x1 = json['playerInfoDTOS'][0]['cardsLeft'];
                 onChangecardLeft1(x1);
                 onChangesetsWon1(json['playerInfoDTOS'][0]['setsWon']);
+                onChangesetsPointsWon1(json['playerInfoDTOS'][0]['points']);
             }
             if (undefined !== json['playerInfoDTOS'][1]['setsWon']) {
                 var x2 = json['playerInfoDTOS'][1]['cardsLeft'];
                 onChangesetsWon2(json['playerInfoDTOS'][1]['setsWon']);
                 onChangecardLeft2(x2);
+                onChangesetsPointsWon2(json['playerInfoDTOS'][1]['points']);
             }
             if (json['playerInfoDTOS'][2] !== undefined) {
                 var x3 = json['playerInfoDTOS'][2]['cardsLeft'];
                 onChangesetsWon3(json['playerInfoDTOS'][2]['setsWon']);
                 onChangecardLeft3(x3);
+                onChangesetsPointsWon3(json['playerInfoDTOS'][2]['points']);
             }
             if (json['playerInfoDTOS'][3] !== undefined) {
                 var x4 = json['playerInfoDTOS'][3]['cardsLeft'];
                 onChangesetsWon4(json['playerInfoDTOS'][3]['setsWon']);
                 onChangecardLeft4(x4);
+                onChangesetsPointsWon4(json['playerInfoDTOS'][3]['points']);
             }
             onChangePlayerToMove(json['playerToMove']);
             onChangeTrumpDeclaredBy(json['trumpDeclaredBy']);
@@ -676,7 +691,7 @@ const getGameData = function (gameCode, onChangeText4, onChangecardLeft1, onChan
 const generatePlayerCode = function (numericId, gameCode, onChangeText3,
                                      onChangeText4,
                                      onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                                     onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                                     onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                                      onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                                      onChangeCurrentSet, setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                                      onChangeClubData) {
@@ -699,7 +714,7 @@ const generatePlayerCode = function (numericId, gameCode, onChangeText3,
                 onChangeText3(json['message']);
                 subscribeAndBind(gameCode,json['message'], onChangeText4,
                     onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
-                    onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4,
+                    onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                     onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
                     onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData);
             } else {
