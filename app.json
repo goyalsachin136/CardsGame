@@ -1,12 +1,18 @@
 {
   "expo": {
-    "name": "CardsGame",
-    "slug": "CardsGame",
+    "name": "Panna",
+    "slug": "panna",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
+    "sdkVersion": "37.0.0",
+    "android": {
+      "icon": "./assets/icon.png",
+      "versionCode": 1,
+      "package": "com.cardsGame.App"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,6 +29,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "508 game"
   }
 }
