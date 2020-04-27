@@ -183,12 +183,13 @@ export default function App() {
                 Game code is {gameCode}  Game can
                 be  {canGameBeStarted === true ? 'started' : ''}
             </Text>*/}
+            {trumpCard === undefined || trumpCard === null || trumpCard === ''  ? null :
             <Text style={styles.title}>
                 Trump card ({getCardFromCardType(trumpCard)})
-            </Text>
-            <Text style={styles.title}>
+            </Text>}
+            {/*<Text style={styles.title}>
                 Your Player number is {playerNumericCode}
-            </Text>
+            </Text>*/}
             <Separator />
             <View>
                 {gameCode === undefined || gameCode === null || gameCode === '' || !canGameBeStarted ?
@@ -284,10 +285,7 @@ export default function App() {
                 />}
                 {null !=  trumpDeclaredBy ? null :
                 <Text style={styles.title}>
-                    0 --> (♥)
-                    1 -->  (♦)
-                    2 -->  (♠)
-                    3 -->  (♣)
+                1-->(♥)           2-->(♦)         3-->(♠)             4-->(♣)
                 </Text>}
                 {null !=  trumpDeclaredBy ? null :
                 <Button
@@ -462,11 +460,9 @@ const setTrump = function (trump, playerCode, gameCode,
                            onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing) {
     //console.log("trump " + trump);
     if (undefined === trump || null === trump) {
-        Alert('Select trump');
         return;
     }
     if (trump.length === 0) {
-        Alert('Select trump');
         return;
     }
     fetch('https://6213a4d0.ngrok.io//demo/setTrump?trump='
@@ -497,13 +493,12 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
                                   onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
                                   onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                                   onChangeClubData) {
-    //console.log("numberOfCardsPerPlayer " + numberOfCardsPerPlayer);
-    if (undefined === numberOfCardsPerPlayer || null === numberOfCardsPerPlayer) {
-        Alert('Select number of cards to distribute');
+    console.log("numberOfCardsPerPlayer " + numberOfCardsPerPlayer);
+    if (undefined === numberOfCardsPerPlayer || null === numberOfCardsPerPlayer || '' === numberOfCardsPerPlayer) {
+        console.log("inside " + numberOfCardsPerPlayer);
         return;
     }
     if (numberOfCardsPerPlayer.length === 0) {
-        Alert('Select number of cards to distribute');
         return;
     }
     console.log(numberOfCardsPerPlayer);
