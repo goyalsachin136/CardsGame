@@ -4,7 +4,7 @@ YellowBox.ignoreWarnings(['Remote debugger']);
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TextInput , ScrollView, RefreshControl} from 'react-native';
 import Constants from 'expo-constants';
 import Pusher from 'pusher-js/react-native';
-import { NetInfo } from "react-native";
+import { Platform,  TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -324,7 +324,20 @@ export default function App() {
             <Text style={styles.title}>
                 {clubCards}
             </Text>
-            <Button
+            <TouchableHighlight onPress={() => getPlayerData(playerCode, onChangeText4,
+                onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
+                onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
+                onChangeClubData)} onLongPress={() => getPlayerData(playerCode, onChangeText4,
+                onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
+                onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
+                onChangeClubData)} underlayColor="white">
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>Refresh my cards</Text>
+                </View>
+            </TouchableHighlight>
+            {/*<Button
                 title="Refresh my cards"
                 color="#f194ff"
                 onPress={() => getPlayerData(playerCode, onChangeText4,
@@ -332,7 +345,7 @@ export default function App() {
                     onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                     onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                     onChangeClubData)}
-            />
+            />*/}
             {playerNumericCode === playerToMove && canGameBeStarted ?
                 <Text style={styles.title}>
                     Select card to move
@@ -769,5 +782,16 @@ const styles = StyleSheet.create({
         borderBottomColor: '#737373',
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
+    button: {
+        marginBottom: 30,
+        width: 260,
+        alignItems: 'center',
+        backgroundColor: '#f194ff'
+    },
+    buttonText: {
+        textAlign: 'center',
+        padding: 20,
+        color: 'white'
+    }
 });
 
