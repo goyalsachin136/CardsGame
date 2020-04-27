@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Panna",
-    "slug": "panna",
+    "slug": "cards508",
     "platforms": [
       "ios",
       "android",
@@ -30,6 +30,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "508 game"
+    "description": "508 game, Now you can enter player name when you enter"
   }
 }
