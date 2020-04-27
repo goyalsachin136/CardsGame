@@ -423,7 +423,7 @@ const moveCard = function (card, playerCode, gameCode,onChangeText4,
         })
         .then(json => {
             //console.log(json);
-            Alert.alert(json['message']);
+            //Alert.alert(json['message']);
             getGameData(gameCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
