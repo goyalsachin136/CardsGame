@@ -141,7 +141,7 @@ export default function App() {
         <SafeAreaView style={styles.container}>
             <View>
                 <Text style={styles.title}>
-                    Welcome to world of card 1.0
+                    Welcome to world of card 1.0.1
                 </Text>
                 {null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted   ?  (<Text style={styles.title}>
                     Enter total number of cards to distribute
