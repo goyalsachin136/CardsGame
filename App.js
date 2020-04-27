@@ -77,6 +77,7 @@ function subscribeAndBind(gameCode,playerCode, onChangeText4,
 export default function App() {
     const [gameCode, onChangeText1] = React.useState('');
     const [playerNumericCode, onChangeText2] = React.useState('');
+    const [playerNickName, onChangeNickName] = React.useState('');
     const [totalNumberOfCards, onChangeTotalCards] = React.useState('');
     const [numberOfPlayers, onChangeTotalPlayers] = React.useState('');
     const [playerCode, onChangeText3] = React.useState('');
@@ -207,11 +208,22 @@ export default function App() {
                         />
                     )
                 }
+                {!(playerCode === undefined || playerCode === '') ? null : (<Text style={styles.title}>
+                    Enter player nick name(max 10 letter)
+                </Text>)}
+                {!(playerCode === undefined || playerCode === '') ? null :(
+                    <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        onChangeText={text => onChangeNickName(text)}
+                        value={playerNickName}
+                    />
+                )
+                }
                 {!(playerCode === undefined || playerCode === '') ? null :(
                 <Button
                     title="Generate player code"
                     color="#f194ff"
-                    onPress={() => generatePlayerCode(playerNumericCode, gameCode, onChangeText3,
+                    onPress={() => generatePlayerCode(playerNumericCode, gameCode, playerNickName, onChangeText3,
                         onChangeText4,
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                         onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
@@ -583,8 +595,14 @@ const getCardSetStringList = function (array) {
     }
     var ans = '';
     for (var i=0; i < array.length; i++) {
-        ans = ans + "  player " + array[i]['playerNumericCode'] + "  " + array[i]['displayCard']
-            + getCardFromCardType(array[i]['cardType']) + "       ";
+         console.log(array[i]);
+        if (null !== array[i]['playerNickName'] && undefined !== array[i]['playerNickName'] && array[i]['playerNickName'] !== '') {
+            ans = ans + "  " + array[i]['playerNickName'] + "  " + array[i]['displayCard']
+                + getCardFromCardType(array[i]['cardType']) + "       ";
+        } else {
+            ans = ans + "  player " + array[i]['playerNumericCode'] + "  " + array[i]['displayCard']
+                + getCardFromCardType(array[i]['cardType']) + "       ";
+        }
     }
     return ans;
 }
@@ -631,9 +649,10 @@ const getGameData = function (gameCode, onChangeText4, onChangecardLeft1, onChan
                               onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
                               onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove, onChangeTrumpDeclaredBy,
                               onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet,setRefreshing) {
-    console.log("getGameData called");
+    console.log("getGameData called for " + gameCode);
     //console.log("getGameData refresh called");
     if (undefined === gameCode || null === gameCode || gameCode.length === 0 ) {
+        console.log("getGameData game code empty");
         setRefreshing(false);
         return;
     }
@@ -680,6 +699,7 @@ const getGameData = function (gameCode, onChangeText4, onChangecardLeft1, onChan
             onChangeCanGameBeStarted(json['canGameBeStarted']);
             //console.log("trump card is " + (json['trumpCard']));
             onChangeTrumpCard(json['trumpCard']);
+            console.log("cardSetDTOS " + json['cardSetDTOS']);
             onChangeCurrentSet(getCardSetStringList(json['cardSetDTOS']));
         })
         .catch(error => {
@@ -688,7 +708,7 @@ const getGameData = function (gameCode, onChangeText4, onChangecardLeft1, onChan
 }
 
 
-const generatePlayerCode = function (numericId, gameCode, onChangeText3,
+const generatePlayerCode = function (numericId, gameCode, playerNickName, onChangeText3,
                                      onChangeText4,
                                      onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                                      onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
@@ -700,7 +720,7 @@ const generatePlayerCode = function (numericId, gameCode, onChangeText3,
         //Alert('Invalid numericId');
         return;
     }
-    fetch('https://6213a4d0.ngrok.io//demo/enterGame?numericId='+numericId+'&gameCode='+gameCode, {
+    fetch('https://6213a4d0.ngrok.io//demo/enterGame?numericId='+numericId+'&gameCode='+gameCode+'&nickName='+playerNickName, {
         method: 'POST',
     })
         .then(response => {
