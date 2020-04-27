@@ -5,7 +5,6 @@ import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TextInput , Scroll
 import Constants from 'expo-constants';
 import Pusher from 'pusher-js/react-native';
 import { NetInfo } from "react-native";
-import { Platform,  TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -24,7 +23,7 @@ function subscribeAndBind(gameCode,playerCode, onChangeText4,
                           onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                           onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                           onChangeCurrentSet, setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                          onChangeClubData, onChangeTouchable) {
+                          onChangeClubData) {
     var channel = pusher.subscribe(gameCode);
 
     channel.bind('move-event', function(data) {
@@ -55,7 +54,7 @@ function subscribeAndBind(gameCode,playerCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                onChangeClubData, onChangeTouchable)
+                onChangeClubData)
         }
     });
     channel.bind('player-entered', function(data) {
@@ -117,12 +116,6 @@ export default function App() {
     const [pointsWon2, onChangesetsPointsWon2] = React.useState('');
     const [pointsWon3, onChangesetsPointsWon3] = React.useState('');
     const [pointsWon4, onChangesetsPointsWon4] = React.useState('');
-    const [touchables, onChangeTouchable] = React.useState(<TouchableHighlight onLongPress={_onPressButton}  underlayColor="white">
-                            <View style={styles.button}>
-                                <Text style={styles.buttonText}>{heartsCards}</Text>
-                            </View>
-                        </TouchableHighlight>
-    );
 
     const onRefresh = function() {
         console.log("onRefresh called");
@@ -135,10 +128,6 @@ export default function App() {
     console.ignoredYellowBox = ['Remote debugger'];
     console.ignoredYellowBox = ['Setting a timer'];
     YellowBox.ignoreWarnings(['Setting a timer']);
-
-    function _onPressButton() {
-        alert('You tapped the button!')
-    }
 
     return (
         <ScrollView refreshControl={
@@ -179,7 +168,7 @@ export default function App() {
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                         onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet,
-                        setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData, onChangeTouchable)}}
+                        setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData)}}
                 />) : null }
             </View>
             <Text style={styles.title}>
@@ -228,7 +217,7 @@ export default function App() {
                         onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                         onChangeCurrentSet, setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                        onChangeClubData, onChangeTouchable)}
+                        onChangeClubData)}
                 />)}
                 {!(playerCode === undefined || playerCode === '') ? null :(
                 <Text style={styles.title}>
@@ -265,7 +254,7 @@ export default function App() {
                         onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
                         onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove, onChangeTrumpDeclaredBy,
                         onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                        onChangeClubData, onChangeTouchable)}
+                        onChangeClubData)}
                 />}
                 {null !=  trumpDeclaredBy ? null :
                 <Text style={styles.title}>
@@ -309,9 +298,6 @@ export default function App() {
             <Text style={styles.title}>
                 My cards
             </Text>
-            <View style={styles.container}>
-                {touchables}
-            </View>
             <Text style={styles.title}>
                 {heartsCards}
             </Text>
@@ -331,7 +317,7 @@ export default function App() {
                     onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                     onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                     onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                    onChangeClubData, onChangeTouchable)}
+                    onChangeClubData)}
             />
             {playerNumericCode === playerToMove && canGameBeStarted ?
                 <Text style={styles.title}>
@@ -354,7 +340,7 @@ export default function App() {
                         onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
                         onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                        onChangeClubData, onChangeTouchable)}
+                        onChangeClubData)}
                 />
                 : null}
             <Text style={styles.title}>
@@ -382,8 +368,6 @@ export default function App() {
         </ScrollView>
     );
 }
-
-
 
 const getCardFromCardType = function (cardType) {
     if (cardType === 'HEART') {
@@ -428,7 +412,7 @@ const moveCard = function (card, playerCode, gameCode,onChangeText4,
                            onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                            onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                            onChangeCurrentSet, setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                           onChangeClubData, onChangeTouchable) {
+                           onChangeClubData) {
     fetch('https://6213a4d0.ngrok.io//demo/moveCard?card='
         +card+'&gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
@@ -448,7 +432,7 @@ const moveCard = function (card, playerCode, gameCode,onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                onChangeClubData, onChangeTouchable)
+                onChangeClubData)
         })
         .catch(error => {
             console.error(error);
@@ -496,7 +480,7 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
                                   onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove,
                                   onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
                                   onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                                  onChangeClubData, onChangeTouchable) {
+                                  onChangeClubData) {
     //console.log("numberOfCardsPerPlayer " + numberOfCardsPerPlayer);
     if (undefined === numberOfCardsPerPlayer || null === numberOfCardsPerPlayer) {
         Alert('Select number of cards to distribute');
@@ -531,7 +515,7 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                onChangeClubData, onChangeTouchable)
+                onChangeClubData)
         })
         .catch(error => {
             console.error(error);
@@ -544,7 +528,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangeText
                                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                                onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                                onChangeCurrentSet, setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                               onChangeClubData, onChangeTouchable) {
+                               onChangeClubData) {
     if (undefined === totalNumberOfCards || null === totalNumberOfCards || '' === totalNumberOfCards) {
         Alert.alert("enter total cards");
         return;
@@ -575,7 +559,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangeText
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet,
                 setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                onChangeClubData, onChangeTouchable);
+                onChangeClubData);
         })
         .catch(error => {
             console.error(error);
@@ -591,21 +575,6 @@ const getCardStringList = function (array) {
         ans = ans + "   " + getCardFromCardType(array[i]['cardType']) + array[i]['displayCode'] + "---->(" + array[i]['card']  + ")       ";
     }
     return ans;
-}
-
-const getTouchableList = function (array) {
-    if (array === undefined || array === null) {
-        return '';
-    }
-    var ans = '';
-    for (var i=0; i < array.length; i++) {
-        ans = ans + "   " + getCardFromCardType(array[i]['cardType']) + array[i]['displayCode'] + "---->(" + array[i]['card']  + ")       ";
-    }
-    return <TouchableHighlight   underlayColor="white">
-        <View style={styles.button}>
-            <Text style={styles.buttonText}>xyz</Text>
-        </View>
-    </TouchableHighlight>;
 }
 
 const getCardSetStringList = function (array) {
@@ -624,7 +593,7 @@ const getPlayerData = function (playerCode, onChangeText4, onChangecardLeft1, on
                               onChangecardLeft3, onChangecardLeft4, onChangesetsWon1, onChangesetsWon2,
                               onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove,
                                 onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                                onChangeClubData, onChangeTouchable) {
+                                onChangeClubData) {
     console.log("getPlayerData " + playerCode);
     if (playerCode === undefined || playerCode === null || playerCode === '') {
         return;
@@ -647,21 +616,14 @@ const getPlayerData = function (playerCode, onChangeText4, onChangecardLeft1, on
             //console.log(json['cardTypeToCardDisplayStringMap']['DIAMOND']);
             //console.log(json['cardTypeToCardDisplayStringMap']['HEART']);
             //console.log(json['cardTypeToCardDisplayStringMap']['SPADE']);
-            onChangeTouchable(getTouchableList());
-            if (json['cardTypeToCardDisplayStringMap'] !== undefined) {
-                onChangeHeartData(getCardStringList(json['cardTypeToCardDisplayStringMap']['HEART']));
-                onChangeDiamondData(getCardStringList(json['cardTypeToCardDisplayStringMap']['DIAMOND']));
-                onChangeClubData(getCardStringList(json['cardTypeToCardDisplayStringMap']['CLUB']));
-                onChangeSpadeData(getCardStringList(json['cardTypeToCardDisplayStringMap']['SPADE']));
-            }
+            onChangeHeartData(getCardStringList(json['cardTypeToCardDisplayStringMap']['HEART']));
+            onChangeDiamondData(getCardStringList(json['cardTypeToCardDisplayStringMap']['DIAMOND']));
+            onChangeClubData(getCardStringList(json['cardTypeToCardDisplayStringMap']['CLUB']));
+            onChangeSpadeData(getCardStringList(json['cardTypeToCardDisplayStringMap']['SPADE']));
         })
         .catch(error => {
             console.error(error);
         });
-}
-
-function _onPressButton() {
-    alert('You tapped the button!')
 }
 
 
@@ -732,7 +694,7 @@ const generatePlayerCode = function (numericId, gameCode, onChangeText3,
                                      onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                                      onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                                      onChangeCurrentSet, setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                                     onChangeClubData, onChangeTouchable) {
+                                     onChangeClubData) {
     //Alert.alert('sachni');
     if (numericId === undefined || numericId === '' || numericId.isNaN) {
         //Alert('Invalid numericId');
@@ -754,7 +716,7 @@ const generatePlayerCode = function (numericId, gameCode, onChangeText3,
                     onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4,
                     onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                     onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
-                    onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData, onChangeTouchable);
+                    onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData);
             } else {
                 Alert.alert(json['message']);
             }
@@ -784,16 +746,5 @@ const styles = StyleSheet.create({
         borderBottomColor: '#737373',
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
-    button: {
-        marginBottom: 30,
-        width: 260,
-        alignItems: 'center',
-        backgroundColor: '#2196F3'
-    },
-    buttonText: {
-        textAlign: 'center',
-        padding: 20,
-        color: 'white'
-    }
 });
 
