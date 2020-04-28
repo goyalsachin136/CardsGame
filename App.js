@@ -1,10 +1,9 @@
 import React from 'react';
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Remote debugger']);
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TextInput , ScrollView, RefreshControl} from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TextInput , ScrollView, RefreshControl, FlatList, TouchableHighlight} from 'react-native';
 import Constants from 'expo-constants';
 import Pusher from 'pusher-js/react-native';
-import { Platform,  TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
 import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 
@@ -175,7 +174,7 @@ export default function App() {
             <View>
                 <FlashMessage position="top" />
                 <Text style={styles.title}>
-                    Welcome to world of card 1.0.2
+                    Welcome to world of card 1.0.3
                 </Text>
                 {null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted   ?  (<Text style={styles.title}>
                     Enter total number of cards to distribute
@@ -343,21 +342,55 @@ export default function App() {
             </Text> : null}
             {canGameBeStarted ? <Separator /> : null}
             {canGameBeStarted ? <Separator /> : null}
-            <Text style={styles.title}>
-                My cards
-            </Text>
-            <Text style={styles.title}>
-                {heartsCards}
-            </Text>
-            <Text style={styles.title}>
-                {diamondCards}
-            </Text>
-            <Text style={styles.title}>
-                {spadeCards}
-            </Text>
-            <Text style={styles.title}>
-                {clubCards}
-            </Text>
+            {playerNumericCode == playerToMove && canGameBeStarted ?
+                <Text style={styles.title}>
+                    Move card
+                </Text>
+                : null}
+            <View style={styles.cards}>
+                <FlatList contentContainerStyle={styles.contentContainerStyle}
+                          data={getDataFromCards(heartsCards)}
+                    renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeText4,
+                        onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
+                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
+                        onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
+                        onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
+                        onChangeClubData)} style={styles.item}>{item.key}</Text>}
+                />
+            </View>
+            <View style={styles.cards}>
+                <FlatList contentContainerStyle={styles.contentContainerStyle}
+                          data={getDataFromCards(diamondCards)}
+                          renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeText4,
+                              onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
+                              onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
+                              onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
+                              onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
+                              onChangeClubData)} style={styles.item}>{item.key}</Text>}
+                />
+            </View>
+            <View style={styles.cards}>
+                <FlatList contentContainerStyle={styles.contentContainerStyle}
+                          data={getDataFromCards(spadeCards)}
+                          renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeText4,
+                              onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
+                              onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
+                              onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
+                              onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
+                              onChangeClubData)} style={styles.item}>{item.key}</Text>}
+                />
+            </View>
+            <View style={styles.cards}>
+                <FlatList contentContainerStyle={styles.contentContainerStyle}
+                          data={getDataFromCards(clubCards)}
+                          renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeText4,
+                              onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
+                              onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
+                              onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
+                              onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
+                              onChangeClubData)} style={styles.item}>{item.key}</Text>}
+                />
+            </View>
             <TouchableHighlight onPress={() => getPlayerData(playerCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
@@ -380,30 +413,18 @@ export default function App() {
                     onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                     onChangeClubData)}
             />*/}
-            {playerNumericCode === playerToMove && canGameBeStarted ?
+           {/* {playerNumericCode === playerToMove && canGameBeStarted ?
                 <Text style={styles.title}>
                     Select card to move
                 </Text> : null
-            }
-            {playerNumericCode == playerToMove && canGameBeStarted ?
+            }*/}
+            {/*{playerNumericCode == playerToMove && canGameBeStarted ?
                 <TextInput
                     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                     onChangeText={text => onChangeCardNumber(text)}
                     value={cardNumber}
                 /> : null
-            }
-            {playerNumericCode == playerToMove && canGameBeStarted ?
-                <Button
-                    title="Move card"
-                    color="#f194ff"
-                    onPress={() => moveCard( cardNumber, playerCode, gameCode,onChangeText4,
-                        onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
-                        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
-                        onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, setRefreshing,
-                        onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                        onChangeClubData)}
-                />
-                : null}
+            }*/}
             <Text style={styles.title}>
                 {undefined !== nickName1 && null!== nickName1 && '' !== nickName1 ? nickName1 : "Player 1 "} card left {cardLeft1} sets won {setsWon1} points {pointsWon1}
             </Text>
@@ -428,6 +449,50 @@ export default function App() {
         </SafeAreaView>
         </ScrollView>
     );
+}
+
+const getDataFromCards = function (array) {
+    var answer = new Array();
+    /**
+     * for (var i=0; i < array.length; i++) {
+        ans.push()
+        ans = ans + "   " + getCardFromCardType(array[i]['cardType']) + array[i]['displayCode'] + "---->(" + array[i]['card']  + ")       ";
+    }
+     */
+    for (var i =0; i < array.length; i++) {
+        var x = new Object();
+        x['key'] = getCardFromCardType(array[i]['cardType']) + array[i]['displayCode'];
+        x['value'] = array[i]['card'];
+        answer.push(x);
+    }
+    return answer;
+    /*return[
+        {key: 'Devin'},
+        {key: 'Dan'},
+        {key: 'Dominic'},
+        {key: 'Jackson'},
+        {key: 'James'},
+        {key: 'Joel'},
+        {key: 'John'},
+        {key: 'Jillian'},
+        {key: 'Jimmy'},
+        {key: 'Julie'},
+    ]*/
+}
+
+const getData = function () {
+return[
+    {key: 'Devin'},
+    {key: 'Dan'},
+    {key: 'Dominic'},
+    {key: 'Jackson'},
+    {key: 'James'},
+    {key: 'Joel'},
+    {key: 'John'},
+    {key: 'Jillian'},
+    {key: 'Jimmy'},
+    {key: 'Julie'},
+]
 }
 
 const getCardFromCardType = function (cardType) {
@@ -485,6 +550,14 @@ const moveCard = function (card, playerCode, gameCode,onChangeText4,
         .then(json => {
             //console.log(json);
             //Alert.alert(json['message']);
+            console.log(json);
+            if (json['error'] !== undefined) {
+                showMessage({
+                    message: json['message'],
+                    backgroundColor: "black", // background color
+                    color: "white"
+                });
+            }
             getGameData(gameCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
@@ -626,13 +699,29 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangeText
 
 const getCardStringList = function (array) {
     if (array === undefined || array === null) {
-        return '';
+        return new Array();
     }
-    var ans = '';
+    /*var ans = new Array();
+
     for (var i=0; i < array.length; i++) {
+        ans.push()
         ans = ans + "   " + getCardFromCardType(array[i]['cardType']) + array[i]['displayCode'] + "---->(" + array[i]['card']  + ")       ";
-    }
-    return ans;
+    }*/
+    return array;
+    /**
+     * return[
+     {key: 'Devin'},
+     {key: 'Dan'},
+     {key: 'Dominic'},
+     {key: 'Jackson'},
+     {key: 'James'},
+     {key: 'Joel'},
+     {key: 'John'},
+     {key: 'Jillian'},
+     {key: 'Jimmy'},
+     {key: 'Julie'},
+     ]
+     */
 }
 
 const getCardSetStringList = function (array) {
@@ -802,6 +891,30 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: Constants.statusBarHeight,
         marginHorizontal: 16,
+    },
+    cards: {
+        flexDirection : "row",
+        flexWrap : "wrap"
+    },
+    contentContainerStyle :{
+        flexDirection : "row",
+        flexWrap : "wrap",
+        justifyContent: 'space-between',
+        padding: 10,
+        marginBottom: 5
+    },
+    item: {
+        marginTop: 16,
+        paddingVertical: 16,
+        paddingHorizontal: 8,
+        borderWidth: 4,
+        borderColor: "#20232a",
+        borderRadius: 6,
+        backgroundColor: "white",
+        color: "#20232a",
+        textAlign: "center",
+        fontSize: 10,
+        fontWeight: "bold"
     },
     title: {
         textAlign: 'center',
