@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Panna",
-      "slug": "cards508",
+    "slug": "cards508",
     "platforms": [
       "ios",
       "android",
@@ -29,8 +29,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier" : "panna1.0"
+      "bundleIdentifier": "panna1.0"
     },
-    "description": "508 game, Now you can enter player name when you enter. Player nick name will be updated real time and will be shown everywhere instead of player numeric code. Version 1.0.1"
+    "description": "508 game, Now you can enter player name when you enter. Player nick name will be updated real time and will be shown everywhere instead of player numeric code. Version 1.0.2"
   }
 }
