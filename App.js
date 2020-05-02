@@ -187,7 +187,7 @@ export default function App() {
         <SafeAreaView style={styles.container}>
             <View>
                 <FlashMessage position="top" />
-                <Text style={styles.title}>
+                <Text style={styles.marginAround}>
                     Welcome to world of card 1.0.3.0
                 </Text>
                 {null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted   ?  (<Text style={styles.title}>
@@ -236,7 +236,7 @@ export default function App() {
             {/*<Text style={styles.title}>
                 Your Player number is {playerNumericCode}
             </Text>*/}
-            <Separator />
+            {/*<Separator />*/}
             <View>
                 {gameCode === undefined || gameCode === null || gameCode === '' || !canGameBeStarted ?
                 <Text style={styles.title}>
@@ -248,12 +248,12 @@ export default function App() {
                     onChangeText={text => onChangeText1(text)}
                     value={gameCode}
                 /> : null}
-                <Text style={styles.title}>Enter player code</Text>
+                {/*<Text style={styles.title}>Enter player code</Text>
                 <TextInput
                     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                     onChangeText={text => onChangeText3(text)}
                     value={playerCode}
-                />
+                />*/}
                 {!(playerCode === undefined || playerCode === '') ? null : (<Text style={styles.title}>
                     Enter player numeric id (1 to 4)
                 </Text>)}
@@ -352,7 +352,7 @@ export default function App() {
                         onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData)}
                 />}
             </View>
-            <Separator />
+            {/*<Separator />*/}
             {canGameBeStarted ?
             <Text style={styles.title}>
                 Current set of game
@@ -405,12 +405,10 @@ export default function App() {
                     renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeText4,
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                         onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
-                        onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,
-                        onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
+                        onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,
+                        onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                         onChangeClubData)} style={styles.item}>{item.key}</Text>}
                 />
-            </View>
-            <View style={styles.cards}>
                 <FlatList contentContainerStyle={styles.contentContainerStyle}
                           data={getDataFromCards(diamondCards)}
                           renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeText4,
@@ -420,8 +418,6 @@ export default function App() {
                               onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                               onChangeClubData)} style={styles.item}>{item.key}</Text>}
                 />
-            </View>
-            <View style={styles.cards}>
                 <FlatList contentContainerStyle={styles.contentContainerStyle}
                           data={getDataFromCards(spadeCards)}
                           renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeText4,
@@ -431,8 +427,6 @@ export default function App() {
                               onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                               onChangeClubData)} style={styles.item}>{item.key}</Text>}
                 />
-            </View>
-            <View style={styles.cards}>
                 <FlatList contentContainerStyle={styles.contentContainerStyle}
                           data={getDataFromCards(clubCards)}
                           renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeText4,
@@ -443,19 +437,11 @@ export default function App() {
                               onChangeClubData)} style={styles.item}>{item.key}</Text>}
                 />
             </View>
-            <TouchableHighlight onPress={() => getPlayerData(playerCode, onChangeText4,
+            <Button title="Refresh my cards" color="#f194ff" onPress={() => getPlayerData(playerCode, onChangeText4,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                onChangeClubData)} onLongPress={() => getPlayerData(playerCode, onChangeText4,
-                onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
-                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
-                onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                onChangeClubData)} underlayColor="white">
-                <View style={styles.button}>
-                    <Text style={styles.buttonText}>Refresh my cards</Text>
-                </View>
-            </TouchableHighlight>
+                onChangeClubData)}/>
             {/*<Button
                 title="Refresh my cards"
                 color="#f194ff"
@@ -971,10 +957,7 @@ const styles = StyleSheet.create({
     },
     contentContainerStyle :{
         flexDirection : "row",
-        flexWrap : "wrap",
-        justifyContent: 'space-between',
-        padding: 1,
-        marginBottom: 1
+        flexWrap : "wrap"
     },
     setItemDown: {
         position: 'absolute',
@@ -1024,7 +1007,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     item: {
-        marginTop: 16,
+        marginTop: 0,
+        marginRight: 4,
         paddingVertical: 16,
         paddingHorizontal: 8,
         borderWidth: 4,
@@ -1118,7 +1102,14 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        marginVertical: 8,
+        marginVertical: 0,
+    },
+    marginAround : {
+        textAlign: 'center',
+        marginVertical: 0,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10
     },
     titleBold: {
         textAlign: 'center',
