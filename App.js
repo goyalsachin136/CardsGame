@@ -352,11 +352,11 @@ export default function App() {
             </Text>*/}
             {/*<Separator />*/}
             <View>
-                {!createGameOn && (gameCode === undefined || gameCode === null || gameCode === '' || !canGameBeStarted) ?
+                {!createGameOn && (undefined === playerCode || null === playerCode  || playerCode.length ===0) ?
                 <Text style={styles.title}>
                     Enter game code
                 </Text> : null }
-                    {!createGameOn && (gameCode === undefined || gameCode === null || gameCode === '' || !canGameBeStarted) ?
+                    {!createGameOn && (undefined === playerCode || null === playerCode  || playerCode.length ===0) ?
                 <TextInput
                     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                     onChangeText={text => onChangeGameCode(text)}
