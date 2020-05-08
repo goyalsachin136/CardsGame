@@ -1,7 +1,8 @@
 import React from 'react';
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Remote debugger']);
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TextInput , ScrollView, RefreshControl, FlatList, TouchableHighlight, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TextInput , ScrollView, RefreshControl, FlatList, TouchableHighlight, Image,
+    TouchableOpacity} from 'react-native';
 import Constants from 'expo-constants';
 import Pusher from 'pusher-js/react-native';
 import { showMessage, hideMessage } from "react-native-flash-message";
@@ -267,17 +268,24 @@ export default function App() {
                 <Text style={styles.marginAround}>
                     Welcome to world of card 1.0.4
                 </Text>
-                {canGameBeStarted ?
+                {playerCode.length !== 0 ?
                     <View style={styles.inline}>
-                        <TouchableOpacity style={styles.buttonTop} onPress={() => resetGame(onChangeGameCode, onChangePlayerCode,
-                            onChangeCanGameBeStarted,onChangeTotalCards,onChangeTotalPlayers, onChangeGameMessage,onChangenickName1,onChangenickName2,onChangenickName3,onChangenickName4,onChangecardLeft1,onChangecardLeft2,onChangecardLeft3,onChangecardLeft4,onChangesetsWon1,onChangesetsWon2,onChangesetsWon3,onChangesetsWon4,onChangePlayerToMove,onChangeCardsPerPerson,onChangeTrumpDeclaredBy,onChangeCurrentSet1,onChangeCurrentSet2,
-                            onChangeCurrentSet3,onChangeCurrentSet4,onChangeHeartData,onChangeDiamondData,onChangeSpadeData,onChangeClubData,onChangeTrumpCard,onChangesetsPointsWon1,onChangesetsPointsWon2,
-                            onChangesetsPointsWon3,onChangesetsPointsWon4)}>
+                        <TouchableOpacity style={styles.buttonTop} onPress={() => Alert.alert(
+                            'Start new game',
+                            'This will delete all your progress. Do you want to continue ?',
+                            [
+                                {text: 'NO', onPress: () => console.warn('NO Pressed'), style: 'cancel'},
+                                {text: 'YES', onPress: () => resetGame(onChangeGameCode, onChangePlayerCode,
+                                        onChangeCanGameBeStarted,onChangeTotalCards,onChangeTotalPlayers, onChangeGameMessage,onChangenickName1,onChangenickName2,onChangenickName3,onChangenickName4,onChangecardLeft1,onChangecardLeft2,onChangecardLeft3,onChangecardLeft4,onChangesetsWon1,onChangesetsWon2,onChangesetsWon3,onChangesetsWon4,onChangePlayerToMove,onChangeCardsPerPerson,onChangeTrumpDeclaredBy,onChangeCurrentSet1,onChangeCurrentSet2,
+                                        onChangeCurrentSet3,onChangeCurrentSet4,onChangeHeartData,onChangeDiamondData,onChangeSpadeData,onChangeClubData,onChangeTrumpCard,onChangesetsPointsWon1,onChangesetsPointsWon2,
+                                        onChangesetsPointsWon3,onChangesetsPointsWon4)},
+                            ]
+                        )}>
                             <Text>Start new game</Text>
                         </TouchableOpacity>
                     </View> : null
                 }
-                {!canGameBeStarted ?
+                {playerCode.length === 0 ?
                 <View style={styles.inline}>
                     <TouchableOpacity style={styles.buttonTop} onPress={() => onChangeCreateGame(true)}>
                         <Text>Create game</Text>
@@ -295,6 +303,8 @@ export default function App() {
                         style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                         onChangeText={text => onChangeTotalCards(text)}
                         value={totalNumberOfCards}
+                        keyboardType={'numeric'}
+                        maxLength = {2}
                     />
                 ) : null
                 }
@@ -306,6 +316,8 @@ export default function App() {
                         style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                         onChangeText={text => onChangeTotalPlayers(text)}
                         value={numberOfPlayers}
+                        keyboardType={'numeric'}
+                        maxLength = {1}
                     />
                 ) : null
                 }
@@ -317,7 +329,8 @@ export default function App() {
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                         onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,
-                        setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData)}}
+                        setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData,
+                        onChangeCreateGame)}}
                 />) : null }
             </View>
             {null != trumpDeclaredBy && '' !== trumpDeclaredBy ?
@@ -341,7 +354,7 @@ export default function App() {
             <View>
                 {!createGameOn && (gameCode === undefined || gameCode === null || gameCode === '' || !canGameBeStarted) ?
                 <Text style={styles.title}>
-                    Enter  game code
+                    Enter game code
                 </Text> : null }
                     {!createGameOn && (gameCode === undefined || gameCode === null || gameCode === '' || !canGameBeStarted) ?
                 <TextInput
@@ -450,51 +463,53 @@ export default function App() {
             </View>
             {/*<Separator />*/}
             {canGameBeStarted ?
-            <Text style={styles.title}>
-                {/*blank space*/}
-            </Text> : null}
+                <Text style={styles.title}>
+                    {/*blank space*/}
+                </Text> : null}
+            {playerCode.length === 0 ? null :
             <View>
                 <Text style={styles.titleBold}>
-                    {nickName1} {cardLeft1} cards {setsWon1} sets  {pointsWon1} points
+                    {nickName1} {cardLeft1} cards {setsWon1} sets {pointsWon1} points
                 </Text>
                 {null !== currentSet1 && '' !== currentSet1 ? <Text style={styles.setItem}>
                     {currentSet1}
                 </Text> : null}
                 <Text style={styles.overImage}>
-                    {nickName2} {cardLeft2} cards {setsWon2} sets  {pointsWon2} points
+                    {nickName2} {cardLeft2} cards {setsWon2} sets {pointsWon2} points
                 </Text>
                 {null !== currentSet2 && '' !== currentSet2 ? <Text style={styles.overImageTableLeft}>
-                        {currentSet2}
-                </Text>: null}
-            <View style={styles.container}>
-                <Image
-                    style={styles.tinyLogo}
-                    source={require('./assets/round-green-table.png')}
-                />
-            </View>
-                {null !== currentSet3 && '' !== currentSet3 ?<Text style={styles.setItemDown}>
+                    {currentSet2}
+                </Text> : null}
+                <View style={styles.container}>
+                    <Image
+                        style={styles.tinyLogo}
+                        source={require('./assets/round-green-table.png')}
+                    />
+                </View>
+                {null !== currentSet3 && '' !== currentSet3 ? <Text style={styles.setItemDown}>
                     {/*{currentSet3}{cardLeft3} --> {setsWon3} points {pointsWon3}*/}
                     {currentSet3}
                 </Text> : null
                 }
                 <Text style={styles.titleBold}>
-                    {nickName3} {cardLeft3} cards {setsWon3} sets  {pointsWon3} points
+                    {nickName3} {cardLeft3} cards {setsWon3} sets {pointsWon3} points
                 </Text>
                 <Text style={styles.overImageRight}>
-                {nickName4} {cardLeft4} cards {setsWon4} sets  {pointsWon4} points
+                    {nickName4} {cardLeft4} cards {setsWon4} sets {pointsWon4} points
                 </Text>
                 {null !== currentSet4 && '' !== currentSet4 ? <Text style={styles.overImageRightTable}>
                     {currentSet4}
                     {/*{currentSet4}{cardLeft4} --> {setsWon4} points {pointsWon4}*/}
                 </Text> : null}
-            </View>
+            </View>}
             {canGameBeStarted ? <Separator /> : null}
             {canGameBeStarted ? <Separator /> : null}
             {playerNumericCode == playerToMove && canGameBeStarted ?
                 <Text style={styles.title}>
                     Move card
                 </Text>
-                : null}
+                : null
+            }
             <View style={styles.cards}>
                 <FlatList contentContainerStyle={styles.contentContainerStyle}
                           data={getDataFromCards(heartsCards)}
@@ -533,11 +548,13 @@ export default function App() {
                               onChangeClubData)} style={styles.item}>{item.key}</Text>}
                 />
             </View>
+            {playerCode.length === 0 ? null :
             <Button title="Refresh my cards" color="#f194ff" onPress={() => getPlayerData(playerCode, onChangeGameMessage,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                 onChangePlayerToMove, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                 onChangeClubData)}/>
+            }
             {/*<Button
                 title="Refresh my cards"
                 color="#f194ff"
@@ -559,7 +576,7 @@ export default function App() {
                     value={cardNumber}
                 /> : null
             }*/}
-            {trumpCard === undefined || trumpCard === '' || trumpCard === null ?
+            {playerCode.length !== 0 && (trumpCard === undefined || trumpCard === '' || trumpCard === null) ?
             <Button
                 title="Open trump"
                 color="#f194ff"
@@ -580,8 +597,6 @@ const resetGame = function (onChangeGameCode, onChangePlayerCode, onChangeCanGam
     onChangeGameCode('');
     onChangePlayerCode('');
     onChangeCanGameBeStarted(false);
-    onChangeTotalCards('');
-    onChangeTotalPlayers('');
     onChangeGameMessage('');
     onChangenickName1('');
     onChangenickName2('');
@@ -827,7 +842,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
                                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                                onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                                onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                               onChangeClubData) {
+                               onChangeClubData, onChangeCreateGame) {
     if (undefined === totalNumberOfCards || null === totalNumberOfCards || '' === totalNumberOfCards) {
         Alert.alert("enter total cards");
         return;
@@ -854,6 +869,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
             Alert.alert("Game generated with code " + json['message']);
             onChangeGameCode(json['message']);
             onChangePlayerCode('');
+            onChangeCreateGame(false);
             /*subscribeAndBind(json['message'],null, onChangeGameMessage,
                 onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                 onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
