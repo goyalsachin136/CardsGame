@@ -303,12 +303,12 @@ export default function App() {
                     </TouchableOpacity>
                 </View> : null
                 }
-                {createGameOn && (null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted)   ?  (<Text style={styles.title}>
+                {createGameOn && (null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted)   ?  (<Text style={styles.boldTitle}>
                     Enter total number of cards to distribute
                 </Text>) : null }
                 {createGameOn && (null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted) ? (
                     <TextInput
-                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        style={{ height: 40, width: 100, borderColor: 'gray', borderWidth: 1 }}
                         onChangeText={text => onChangeTotalCards(text)}
                         value={totalNumberOfCards}
                         keyboardType={'numeric'}
@@ -316,12 +316,12 @@ export default function App() {
                     />
                 ) : null
                 }
-                {createGameOn && (null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted)   ?  (<Text style={styles.title}>
+                {createGameOn && (null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted)   ?  (<Text style={styles.boldTitle}>
                     Enter number of players
                 </Text>) : null }
                 {createGameOn && (null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted) ? (
                     <TextInput
-                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                        style={{ height: 40, width: 50, borderColor: 'gray', borderWidth: 1 }}
                         onChangeText={text => onChangeTotalPlayers(text)}
                         value={numberOfPlayers}
                         keyboardType={'numeric'}
@@ -347,7 +347,7 @@ export default function App() {
             </Text>: null
             }
             {null != gameCode && '' !== gameCode ?
-            <Text style={styles.title} selectable>
+            <Text style={styles.boldTitle} selectable>
                 Game code is {gameCode}
             </Text> : null
             }
@@ -361,7 +361,7 @@ export default function App() {
             {/*<Separator />*/}
             <View>
                 {!createGameOn && (undefined === playerCode || null === playerCode  || playerCode.length ===0) ?
-                <Text style={styles.title}>
+                <Text style={styles.boldTitle}>
                     Enter game code
                 </Text> : null }
                     {!createGameOn && (undefined === playerCode || null === playerCode  || playerCode.length ===0) ?
@@ -370,7 +370,7 @@ export default function App() {
                     onChangeText={text => onChangeGameCode(text)}
                     value={gameCode}
                 /> : null}
-                {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null : (<Text style={styles.title}>
+                {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null : (<Text style={styles.boldTitle}>
                     Enter player numeric id (1 to 4)
                 </Text>)}
                 {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null :(
@@ -381,7 +381,7 @@ export default function App() {
                         />
                     )
                 }
-                {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null : (<Text style={styles.title}>
+                {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null : (<Text style={styles.boldTitle}>
                     Enter player nick name(max 10 letter)
                 </Text>)}
                 {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null :(
@@ -1341,11 +1341,19 @@ const styles = StyleSheet.create({
         width: '30%' /* Set the width of the positioned div */,
         fontWeight: "bold"
     },
+    boldTitle: {
+        marginTop: 40,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginVertical: 0,
+        fontSize: 20
+    },
     title: {
         textAlign: 'center',
         marginVertical: 0,
     },
     marginAround : {
+        fontSize: 20,
         textAlign: 'center',
         marginVertical: 0,
         fontWeight: 'bold',
