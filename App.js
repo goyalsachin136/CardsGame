@@ -294,7 +294,7 @@ export default function App() {
             <View>
                 <FlashMessage position="top" />
                 <Text style={styles.marginAround}>
-                    Welcome to world of card 1.0.4
+                    Welcome to 508 Version 2.0
                 </Text>
                 {playerCode.length !== 0 ?
                     <View style={styles.inline}>
