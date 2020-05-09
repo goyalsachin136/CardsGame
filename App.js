@@ -404,12 +404,12 @@ export default function App() {
                         onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                         onChangeClubData, onChangeRelativePlayerToMove)}
                 />)}
-                <Text style={styles.title}>Enter Player code</Text>
+                {/*<Text style={styles.title}>Enter Player code</Text>
                 <TextInput
                     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                     onChangeText={text => onChangePlayerCode(text)}
                     value={playerCode}
-                />
+                />*/}
                 {playerCode.length !== 0 ? <Button
                     title="Refresh game data"
                     color="#f194ff"
@@ -887,8 +887,16 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
         Alert.alert("enter total cards");
         return;
     }
+    if (isNaN(totalNumberOfCards)) {
+        Alert.alert("enter valid total cards '" + totalNumberOfCards + "' is not a valid number");
+        return;
+    }
     if (undefined === numberOfPlayers || null === numberOfPlayers || '' === numberOfPlayers) {
         Alert.alert("enter number of  players");
+        return;
+    }
+    if (isNaN(numberOfPlayers)) {
+        Alert.alert("enter valid total number of players");
         return;
     }
     //console.log("totalNumberOfCards " + totalNumberOfCards);
