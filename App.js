@@ -761,7 +761,7 @@ const openTrump = function (playerCode, gameCode,
                            onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,
                             onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData,
                             onChangeRelativePlayerToMove) {
-    fetch('https://43bb4c92.ngrok.io/demo/openTrump?gameCode='+gameCode+"&playerCode="+playerCode, {
+    fetch('http:///demo/openTrump?gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })
         .then(response => {
@@ -789,7 +789,7 @@ const moveCard = function (card, playerCode, gameCode,onChangeGameMessage,
                            onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                            onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                            onChangeClubData, onChangeRelativePlayerToMove) {
-    fetch('https://43bb4c92.ngrok.io/demo/moveCard?card='
+    fetch('http:///demo/moveCard?card='
         +card+'&gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })
@@ -839,7 +839,7 @@ const setTrump = function (trump, playerCode, gameCode,
     if (trump.length === 0) {
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/setTrump?trump='
+    fetch('http:///demo/setTrump?trump='
         +trump+'&gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })
@@ -883,7 +883,7 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
         Alert('Enter valid number');
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/distributeCards?numberOfCardsPerPlayer='
+    fetch('http:///demo/distributeCards?numberOfCardsPerPlayer='
         +numberOfCardsPerPlayer+'&gameCode='+gameCode, {
         method: 'POST',
     })
@@ -936,7 +936,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
     }
     //console.log("totalNumberOfCards " + totalNumberOfCards);
     //console.log("numberOfPlayers " + numberOfPlayers);
-    fetch('https://43bb4c92.ngrok.io/demo/addGame?numberOfPlayers='+numberOfPlayers+'&numberOfCards='+totalNumberOfCards, {
+    fetch('http:///demo/addGame?numberOfPlayers='+numberOfPlayers+'&numberOfCards='+totalNumberOfCards, {
         method: 'POST',
     })
         .then(response => {
@@ -1036,7 +1036,7 @@ const getPlayerData = function (playerCode, onChangeGameMessage, onChangecardLef
         return;
     }
     //console.log("playerCode " + playerCode);
-    fetch('https://43bb4c92.ngrok.io/demo/playerState?playerCode='+playerCode, {
+    fetch('http:///demo/playerState?playerCode='+playerCode, {
         method: 'GET',
     })
         .then(response => {
@@ -1081,7 +1081,7 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
         setRefreshing(false);
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/gameState?gameCode='+gameCode+'&playerCode='+playerCode, {
+    fetch('http:///demo/gameState?gameCode='+gameCode+'&playerCode='+playerCode, {
         method: 'GET',
     })
         .then(response => {
@@ -1182,7 +1182,7 @@ const generatePlayerCode = function (numericId, gameCode, playerNickName, onChan
         //Alert('Invalid numericId');
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/enterGame?numericId='+numericId+'&gameCode='+gameCode+'&nickName='+playerNickName, {
+    fetch('http:///demo/enterGame?numericId='+numericId+'&gameCode='+gameCode+'&nickName='+playerNickName, {
         method: 'POST',
     })
         .then(response => {
