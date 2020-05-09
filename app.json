@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Panna",
+    "name": "Panna508",
     "slug": "cards508",
     "platforms": [
       "ios",
@@ -13,7 +13,7 @@
       "versionCode": 1,
       "package": "com.cardsGame.App"
     },
-    "version": "1.0.0",
+    "version": "2.0",
     "orientation": "portrait",
     "icon": "./assets/ios.png",
     "splash": {
@@ -29,8 +29,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "panna1.0"
+      "bundleIdentifier": "panna2.0"
     },
-    "description": "508 game, Now you can enter player name when you enter. Player nick name will be updated real time and will be shown everywhere instead of player numeric code. Version 1.0.2"
+    "description": "508 game, Table View, Sound on player entry, Create Game, Join game option on game entry. When player has to move blink effect"
   }
 }
