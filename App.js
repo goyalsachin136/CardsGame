@@ -10,6 +10,7 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 import FlashMessage from "react-native-flash-message";
 import ignoreWarnings from 'react-native-ignore-warnings';
 import * as Speech from 'expo-speech';
+import { ChonseSelect } from 'react-native-chonse-select';
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -78,6 +79,25 @@ async function openTrumpSound() {
 let isSubscribed = false;
 let subscribedForGameCode = null;
 let channel = null;
+
+const playerNumericCodes = [
+    {
+        value:'1',
+        label:'1'
+    },
+    {
+        value:'2',
+        label:'2'
+    },
+    {
+        value:'3',
+        label:'3'
+    },
+    {
+        value:'4',
+        label:'4'
+    }
+]
 
 function subscribeAndBind(gameCode,playerCode, onChangeGameMessage,
                           onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
@@ -341,9 +361,13 @@ export default function App() {
                         onChangeCreateGame)}}
                 />) : null }
             </View>
+            {!canGameBeStarted?
+            <BlinkView blinking={true} delay={100}>
+                <Text>{gameMessage}</Text>
+            </BlinkView>: null}
             {null != trumpDeclaredBy && '' !== trumpDeclaredBy ?
             <Text style={styles.title}>
-                {gameMessage} Trump is declared by {trumpDeclaredBy}
+                Trump is declared by {trumpDeclaredBy}
             </Text>: null
             }
             {null != gameCode && '' !== gameCode ?
@@ -371,16 +395,27 @@ export default function App() {
                     value={gameCode}
                 /> : null}
                 {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null : (<Text style={styles.boldTitle}>
-                    Enter player numeric id (1 to 4)
+                    Choose player numeric id (1 to 4)
                 </Text>)}
                 {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null :(
+                    <View>
+                        <ChonseSelect
+                            height={55}
+                            style={{ marginLeft: 20, marginBottom: 10 }}
+                            data={playerNumericCodes}
+                            initValue={playerNumericCode}
+                            onPress={(item) => {onChangePlayerNumericCode(item.value)}}
+                        />
+                    </View>
+                )}
+                {/*{createGameOn || (!(playerCode === undefined || playerCode === '')) ? null :(
                         <TextInput
                             style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                             onChangeText={text => onChangePlayerNumericCode(text)}
                             value={playerNumericCode}
                         />
                     )
-                }
+                }*/}
                 {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null : (<Text style={styles.boldTitle}>
                     Enter player nick name(max 10 letter)
                 </Text>)}
@@ -394,7 +429,7 @@ export default function App() {
                 }
                 {createGameOn || (!(playerCode === undefined || playerCode === '')) ? null :(
                 <Button
-                    title="Generate player code"
+                    title="Join game"
                     color="#f194ff"
                     onPress={() => generatePlayerCode(playerNumericCode, gameCode, playerNickName, onChangePlayerCode,
                         onChangeGameMessage,
