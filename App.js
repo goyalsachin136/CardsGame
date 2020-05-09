@@ -1,6 +1,7 @@
 import React from 'react';
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Remote debugger']);
+import BlinkView from 'react-native-blink-view'
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TextInput , ScrollView, RefreshControl, FlatList, TouchableHighlight, Image,
     TouchableOpacity} from 'react-native';
 import Constants from 'expo-constants';
@@ -77,6 +78,7 @@ async function openTrumpSound() {
 let isSubscribed = false;
 let subscribedForGameCode = null;
 let channel = null;
+let relativePlayerToMove = '';
 
 function subscribeAndBind(gameCode,playerCode, onChangeGameMessage,
                           onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
@@ -232,6 +234,7 @@ export default function App() {
         React.useState('');
 
     const [refreshing, setRefreshing] = React.useState(false);
+    const [isBlinking, setBlinking] = React.useState(false);
 
     const [pointsWon1, onChangesetsPointsWon1] = React.useState('');
     const [pointsWon2, onChangesetsPointsWon2] = React.useState('');
@@ -468,15 +471,27 @@ export default function App() {
                 </Text> : null}
             {playerCode.length === 0 ? null :
             <View>
-                <Text style={styles.titleBold}>
-                    {nickName1} {cardLeft1} cards {setsWon1} sets {pointsWon1} points
-                </Text>
+                {relativePlayerToMove === 'nickName1' && canGameBeStarted ?
+                    <BlinkView blinking={true} delay={100}>
+                        <Text style={styles.titleBold}>
+                            {nickName1} {cardLeft1} cards {setsWon1} sets {pointsWon1} points
+                        </Text>
+                    </BlinkView> : <Text style={styles.titleBold}>
+                        {nickName1} {cardLeft1} cards {setsWon1} sets {pointsWon1} points
+                    </Text>
+                }
                 {null !== currentSet1 && '' !== currentSet1 ? <Text style={styles.setItem}>
                     {currentSet1}
                 </Text> : null}
-                <Text style={styles.overImage}>
-                    {nickName2} {cardLeft2} cards {setsWon2} sets {pointsWon2} points
-                </Text>
+                {relativePlayerToMove === 'nickName2'   && canGameBeStarted ?
+                    <BlinkView blinking={true} delay={100} style={styles.overImage}>
+                        <Text style={styles.titleBold}>
+                            {nickName2} {cardLeft2} cards {setsWon2} sets {pointsWon2} points
+                        </Text>
+                    </BlinkView> : <Text style={styles.overImage}>
+                        {nickName2} {cardLeft2} cards {setsWon2} sets {pointsWon2} points
+                    </Text>
+                }
                 {null !== currentSet2 && '' !== currentSet2 ? <Text style={styles.overImageTableLeft}>
                     {currentSet2}
                 </Text> : null}
@@ -491,12 +506,25 @@ export default function App() {
                     {currentSet3}
                 </Text> : null
                 }
-                <Text style={styles.titleBold}>
-                    {nickName3} {cardLeft3} cards {setsWon3} sets {pointsWon3} points
-                </Text>
-                <Text style={styles.overImageRight}>
-                    {nickName4} {cardLeft4} cards {setsWon4} sets {pointsWon4} points
-                </Text>
+                {
+                    relativePlayerToMove === 'nickName3' &&  canGameBeStarted ?
+                    <BlinkView blinking={true} delay={100} style={styles.titleBold}>
+                        <Text style={styles.titleBold}>
+                            {nickName3} {cardLeft3} cards {setsWon3} sets {pointsWon3} points
+                        </Text>
+                    </BlinkView> : <Text style={styles.titleBold}>
+                            {nickName3} {cardLeft3} cards {setsWon3} sets {pointsWon3} points
+                        </Text>
+                }
+                {relativePlayerToMove === 'nickName4' && canGameBeStarted ?
+                    <BlinkView blinking={true} delay={100} style={styles.overImageRight}>
+                        <Text style={styles.titleBold}>
+                            {nickName4} {cardLeft4} cards {setsWon4} sets {pointsWon4} points
+                        </Text>
+                    </BlinkView> : <Text style={styles.overImageRight}>
+                        {nickName4} {cardLeft4} cards {setsWon4} sets {pointsWon4} points
+                    </Text>
+                }
                 {null !== currentSet4 && '' !== currentSet4 ? <Text style={styles.overImageRightTable}>
                     {currentSet4}
                     {/*{currentSet4}{cardLeft4} --> {setsWon4} points {pointsWon4}*/}
@@ -504,12 +532,12 @@ export default function App() {
             </View>}
             {canGameBeStarted ? <Separator /> : null}
             {canGameBeStarted ? <Separator /> : null}
-            {playerNumericCode == playerToMove && canGameBeStarted ?
+            {/*{playerNumericCode == playerToMove && canGameBeStarted ?
                 <Text style={styles.title}>
                     Move card
                 </Text>
                 : null
-            }
+            }*/}
             <View style={styles.cards}>
                 <FlatList contentContainerStyle={styles.contentContainerStyle}
                           data={getDataFromCards(heartsCards)}
@@ -1005,7 +1033,6 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
             return response.json();
         })
         .then(json => {
-            //console.log(json);
             setRefreshing(false);
             onChangeGameMessage(json['gameStateToDisplay']);
             if (undefined === json['playerInfoDTOS']) {
@@ -1017,6 +1044,9 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
                 onChangesetsWon1(json['playerInfoDTOS'][0]['setsWon']);
                 onChangesetsPointsWon1(json['playerInfoDTOS'][0]['points']);
                 onChangenickName1(json['playerInfoDTOS'][0]['nickName']);
+                if (json['playerInfoDTOS'][0]['toMove']) {
+                    relativePlayerToMove = 'nickName1';
+                }
             }
             if (undefined !== json['playerInfoDTOS'][1]['setsWon']) {
                 var x2 = json['playerInfoDTOS'][1]['cardsLeft'];
@@ -1024,6 +1054,9 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
                 onChangecardLeft2(x2);
                 onChangesetsPointsWon2(json['playerInfoDTOS'][1]['points']);
                 onChangenickName2(json['playerInfoDTOS'][1]['nickName']);
+                if (json['playerInfoDTOS'][1]['toMove']) {
+                    relativePlayerToMove = 'nickName2';
+                }
             }
             if (json['playerInfoDTOS'][2] !== undefined) {
                 var x3 = json['playerInfoDTOS'][2]['cardsLeft'];
@@ -1031,6 +1064,9 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
                 onChangecardLeft3(x3);
                 onChangesetsPointsWon3(json['playerInfoDTOS'][2]['points']);
                 onChangenickName3(json['playerInfoDTOS'][2]['nickName']);
+                if (json['playerInfoDTOS'][2]['toMove']) {
+                    relativePlayerToMove = 'nickName3';
+                }
             }
             if (json['playerInfoDTOS'][3] !== undefined) {
                 var x4 = json['playerInfoDTOS'][3]['cardsLeft'];
@@ -1038,6 +1074,9 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
                 onChangecardLeft4(x4);
                 onChangesetsPointsWon4(json['playerInfoDTOS'][3]['points']);
                 onChangenickName4(json['playerInfoDTOS'][3]['nickName']);
+                if (json['playerInfoDTOS'][3]['toMove']) {
+                    relativePlayerToMove = 'nickName4';
+                }
             }
             onChangePlayerToMove(json['playerToMove']);
             onChangeTrumpDeclaredBy(json['trumpDeclaredBy']);
