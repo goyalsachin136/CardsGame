@@ -1,4 +1,5 @@
 import {Alert} from "react-native";
+import {urlProd} from "../config/urlConfig";
 
 const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlayerCode, onChangeGameCode,
                                onChangeGameMessage,
@@ -25,7 +26,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
     }
     //console.log("totalNumberOfCards " + totalNumberOfCards);
     //console.log("numberOfPlayers " + numberOfPlayers);
-    fetch('/demo/addGame?numberOfPlayers='+numberOfPlayers+'&numberOfCards='+totalNumberOfCards, {
+    fetch(urlProd + '/demo/addGame?numberOfPlayers='+numberOfPlayers+'&numberOfCards='+totalNumberOfCards, {
         method: 'POST',
     })
         .then(response => {

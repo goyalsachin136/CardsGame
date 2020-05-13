@@ -1,5 +1,6 @@
 import {Alert} from "react-native";
 import {getGameData} from "./getGameData";
+import {urlProd} from "../config/urlConfig";
 
 const setTrump = function (trump, playerCode, gameCode,
                            onChangeGameMessage, onChangecardLeft1, onChangecardLeft2,
@@ -15,7 +16,7 @@ const setTrump = function (trump, playerCode, gameCode,
     if (trump.length === 0) {
         return;
     }
-    fetch('/demo/setTrump?trump='
+    fetch(urlProd + '/demo/setTrump?trump='
         +trump+'&gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })

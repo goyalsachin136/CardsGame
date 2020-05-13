@@ -1,0 +1,3 @@
+const urlProd = '';
+
+export {urlProd}

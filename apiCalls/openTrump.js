@@ -1,5 +1,6 @@
 import {Alert} from "react-native";
 import {getGameData} from "./getGameData";
+import {urlProd} from "../config/urlConfig";
 
 const openTrump = function (playerCode, gameCode,
                             onChangeGameMessage, onChangecardLeft1, onChangecardLeft2,
@@ -8,7 +9,7 @@ const openTrump = function (playerCode, gameCode,
                             onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,
                             onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData,
                             onChangeRelativePlayerToMove) {
-    fetch('/demo/openTrump?gameCode='+gameCode+"&playerCode="+playerCode, {
+    fetch(urlProd + '/demo/openTrump?gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })
         .then(response => {

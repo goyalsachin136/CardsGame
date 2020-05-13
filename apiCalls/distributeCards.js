@@ -1,6 +1,7 @@
 import {Alert} from "react-native";
 import {getGameData} from "./getGameData";
 import {getPlayerData} from "./getPlayerData";
+import { urlProd } from "./../config/urlConfig";
 
 const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
                                   onChangeGameMessage, onChangecardLeft1, onChangecardLeft2,
@@ -23,7 +24,7 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
         Alert('Enter valid number');
         return;
     }
-    fetch('/demo/distributeCards?numberOfCardsPerPlayer='
+    fetch(urlProd+ '/demo/distributeCards?numberOfCardsPerPlayer='
         +numberOfCardsPerPlayer+'&gameCode='+gameCode, {
         method: 'POST',
     })
