@@ -1,5 +1,6 @@
 # React native application of Cards game using expo 
 
+Backend code  at https://github.com/goyalsachin136/cardsWorld 
 ## Architecture
 
 Flow starts from App.js
@@ -29,7 +30,7 @@ variables.
 
 
 
-All of the api calls(backedn data store) are in apiCalls folder
+All of the api calls(backend data store) are in apiCalls folder
 
 Images and sound used are in assets folder
 
