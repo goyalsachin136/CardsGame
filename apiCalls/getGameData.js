@@ -1,5 +1,6 @@
 import {subscribeAndBind} from "../Pusher";
 import {Alert} from "react-native";
+import {urlProd} from "../config/urlConfig";
 
 const   getCardFromCardType = function (cardType) {
     if (cardType === 'HEART') {
@@ -67,7 +68,7 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
         setRefreshing(false);
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/gameState?gameCode='+gameCode+'&playerCode='+playerCode, {
+    fetch(urlProd + '/demo/gameState?gameCode='+gameCode+'&playerCode='+playerCode, {
         method: 'GET',
     })
         .then(response => {

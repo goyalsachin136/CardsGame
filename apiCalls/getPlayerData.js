@@ -1,4 +1,5 @@
 import {Alert} from "react-native";
+import {urlProd} from "../config/urlConfig";
 
 const getCardStringList = function (array) {
     if (array === undefined || array === null) {
@@ -23,7 +24,7 @@ const getPlayerData = function (playerCode, onChangeGameMessage, onChangecardLef
         return;
     }
     //console.log("playerCode " + playerCode);
-    fetch('https://43bb4c92.ngrok.io/demo/playerState?playerCode='+playerCode, {
+    fetch(urlProd + '/demo/playerState?playerCode='+playerCode, {
         method: 'GET',
     })
         .then(response => {

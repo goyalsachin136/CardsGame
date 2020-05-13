@@ -2,6 +2,7 @@ import {showMessage} from "react-native-flash-message";
 import {getGameData} from "./getGameData";
 import {getPlayerData} from "./getPlayerData";
 import {Alert} from "react-native";
+import {urlProd} from "../config/urlConfig";
 
 const moveCard = function (card, playerCode, gameCode,onChangeGameMessage,
                            onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
@@ -9,7 +10,7 @@ const moveCard = function (card, playerCode, gameCode,onChangeGameMessage,
                            onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                            onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                            onChangeClubData, onChangeRelativePlayerToMove) {
-    fetch('https://43bb4c92.ngrok.io/demo/moveCard?card='
+    fetch(urlProd + '/demo/moveCard?card='
         +card+'&gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })

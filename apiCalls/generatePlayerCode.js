@@ -1,5 +1,6 @@
 import {Alert} from "react-native";
 import {subscribeAndBind} from "../Pusher";
+import {urlProd} from "../config/urlConfig";
 
 const generatePlayerCode = function (numericId, gameCode, playerNickName, onChangePlayerCode,
                                      onChangeGameMessage,
@@ -12,7 +13,7 @@ const generatePlayerCode = function (numericId, gameCode, playerNickName, onChan
         //Alert('Invalid numericId');
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/enterGame?numericId='+numericId+'&gameCode='+gameCode+'&nickName='+playerNickName, {
+    fetch(urlProd + '/demo/enterGame?numericId='+numericId+'&gameCode='+gameCode+'&nickName='+playerNickName, {
         method: 'POST',
     })
         .then(response => {
