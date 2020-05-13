@@ -131,7 +131,13 @@ export default function App() {
 
     return (
         <ScrollView refreshControl={
-            <RefreshControl refreshing={refreshing}  onRefresh={onRefresh} />
+            <RefreshControl refreshing={refreshing}  onRefresh={() =>
+                getGameData(gameCode, playerCode, onChangeGameMessage,
+                onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
+                onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
+                onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,
+                onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData,
+                onChangeRelativePlayerToMove)} />
         }>
         <SafeAreaView style={styles.container}>
             <View>
@@ -140,10 +146,37 @@ export default function App() {
                     Welcome to PANNA Version 2.0
                 </Text>
                 {playerCode.length !== 0 ?
-                    StartNewGame : null
+                    <View style={styles.inline}>
+                        <TouchableOpacity style={styles.buttonTop} onPress={() => Alert.alert(
+                            'Start new game',
+                            'This will delete all your progress. Do you want to continue ?',
+                            [
+                                {text: 'NO', onPress: () => console.warn('NO Pressed'), style: 'cancel'},
+                                {
+                                    text: 'YES', onPress: () => resetGame(onChangeGameCode, onChangePlayerCode,
+                                        onChangeCanGameBeStarted, onChangeTotalCards, onChangeTotalPlayers, onChangeGameMessage, onChangenickName1, onChangenickName2,
+                                        onChangenickName3, onChangenickName4, onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangesetsWon1,
+                                        onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangePlayerToMove, onChangeCardsPerPerson, onChangeTrumpDeclaredBy,
+                                        onChangeCurrentSet1, onChangeCurrentSet2,
+                                        onChangeCurrentSet3, onChangeCurrentSet4, onChangeHeartData, onChangeDiamondData, onChangeSpadeData, onChangeClubData,
+                                        onChangeTrumpCard, onChangesetsPointsWon1, onChangesetsPointsWon2,
+                                        onChangesetsPointsWon3, onChangesetsPointsWon4)
+                                },
+                            ]
+                        )}>
+                            <Text>Start new game</Text>
+                        </TouchableOpacity>
+                    </View> : null
                 }
                 {playerCode.length === 0 ?
-                    EntryScreen : null
+                    <View style={styles.inline}>
+                        <TouchableOpacity style={styles.buttonTop} onPress={() => onChangeCreateGame(true)}>
+                            <Text>Create game</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.buttonTop} onPress={() => onChangeCreateGame(false)}>
+                            <Text>Join game</Text>
+                        </TouchableOpacity>
+                    </View> : null
                 }
                 {createGameOn && (null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted)   ?  (<Text style={styles.boldTitle}>
                     Enter total number of cards to distribute
