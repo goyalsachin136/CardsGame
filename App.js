@@ -15,8 +15,7 @@ import { distributeCards } from './apiCalls/distributeCards'
 import { openTrump } from './apiCalls/openTrump'
 import { setTrump } from './apiCalls/setTrump'
 import { moveCard } from './apiCalls/moveCard'
-import { EntryScreen } from './view/EntryScreen'
-import { StartNewGame } from './view/StartNewGame'
+import { resetGame } from "./resetGame";
 // Enable pusher logging - don't include this in productio
 Pusher.logToConsole = true;
 
@@ -46,17 +45,6 @@ const playerNumericCodes = [
         label:'4'
     }
 ];
-
-const onRefresh = function() {
-    console.log("onRefresh called");
-    getGameData(gameCode, playerCode, onChangeGameMessage,
-        onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
-        onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
-        onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,
-        onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData,
-        onChangeRelativePlayerToMove);
-};
-
 
 export default function App() {
     const [createGameOn, onChangeCreateGame] = React.useState(true);
@@ -484,43 +472,6 @@ export default function App() {
     );
 }
 
-const resetGame = function (onChangeGameCode, onChangePlayerCode, onChangeCanGameBeStarted,onChangeTotalCards,onChangeTotalPlayers, onChangeGameMessage,onChangenickName1,onChangenickName2,onChangenickName3,onChangenickName4,onChangecardLeft1,onChangecardLeft2,onChangecardLeft3,onChangecardLeft4,onChangesetsWon1,onChangesetsWon2,onChangesetsWon3,onChangesetsWon4,onChangePlayerToMove,onChangeCardsPerPerson,onChangeTrumpDeclaredBy,onChangeCurrentSet1,onChangeCurrentSet2,
-                            onChangeCurrentSet3,onChangeCurrentSet4,onChangeHeartData,onChangeDiamondData,onChangeSpadeData,onChangeClubData,onChangeTrumpCard,onChangesetsPointsWon1,onChangesetsPointsWon2,
-                            onChangesetsPointsWon3,onChangesetsPointsWon4) {
-    onChangeGameCode('');
-    onChangePlayerCode('');
-    onChangeCanGameBeStarted(false);
-    onChangeGameMessage('');
-    onChangenickName1('');
-    onChangenickName2('');
-    onChangenickName3('');
-    onChangenickName4('');
-    onChangecardLeft1('');
-    onChangecardLeft2('');
-    onChangecardLeft3('');
-    onChangecardLeft4('');
-    onChangesetsWon1('');
-    onChangesetsWon2('');
-    onChangesetsWon3('');
-    onChangesetsWon4('');
-    onChangePlayerToMove('');
-    onChangeCardsPerPerson('');
-    onChangeTrumpDeclaredBy('');
-    onChangeCurrentSet1('');
-    onChangeCurrentSet2('');
-    onChangeCurrentSet3('');
-    onChangeCurrentSet4('');
-    onChangeHeartData('');
-    onChangeDiamondData('');
-    onChangeSpadeData('');
-    onChangeClubData('');
-    onChangeTrumpCard('');
-    onChangesetsPointsWon1('');
-    onChangesetsPointsWon2('');
-    onChangesetsPointsWon3('');
-    onChangesetsPointsWon4('');
-}
-
 const getDataFromCards = function (array) {
     var answer = new Array();
     for (var i =0; i < array.length; i++) {
@@ -531,7 +482,6 @@ const getDataFromCards = function (array) {
     }
     return answer;
 }
-
 
 const getCardFromCardType = function (cardType) {
     if (cardType === 'HEART') {
