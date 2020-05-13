@@ -52,3 +52,12 @@ Game views snapshot
 https://photos.app.goo.gl/md234AQ4C7certV49
 
 
+## Build app
+npm install
+
+## Run app
+npm start
+
+It will open a tab at port 19001. Install expo app on your mobile and scan qr code. You are ready to play with the 
+application
+
