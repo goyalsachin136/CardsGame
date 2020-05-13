@@ -1,6 +1,6 @@
-#React native application of Cards game using expo 
+# React native application of Cards game using expo 
 
-##Architecture
+## Architecture
 
 Flow starts from App.js
 
