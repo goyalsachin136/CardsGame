@@ -21,3 +21,4 @@ for other entered players when someone joins a game
 Api.js is not being used anywhere but shows that how react components are made and App.js view must be broken
 into small react components
 
+https://photos.app.goo.gl/md234AQ4C7certV49
