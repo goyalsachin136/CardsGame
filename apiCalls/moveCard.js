@@ -3,6 +3,7 @@ import {getGameData} from "./getGameData";
 import {getPlayerData} from "./getPlayerData";
 import {Alert} from "react-native";
 import {urlProd} from "../config/urlConfig";
+import {serverUnreachableError} from "./constant";
 
 const moveCard = function (card, playerCode, gameCode,onChangeGameMessage,
                            onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
@@ -42,6 +43,7 @@ const moveCard = function (card, playerCode, gameCode,onChangeGameMessage,
                 onChangeClubData)
         })
         .catch(error => {
+            console.log("moveCard");
             Alert.alert(serverUnreachableError);
         });
 }

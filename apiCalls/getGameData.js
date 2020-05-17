@@ -1,6 +1,7 @@
 import {subscribeAndBind} from "../Pusher";
 import {Alert} from "react-native";
 import {urlProd} from "../config/urlConfig";
+import {serverUnreachableError} from "./constant";
 
 const   getCardFromCardType = function (cardType) {
     if (cardType === 'HEART') {
@@ -152,6 +153,7 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
             onChangeCurrentSet4(getCardSetStringListByPlayer(json['cardSetDTOS'], 4));
         })
         .catch(error => {
+            console.log("getGameData");
             Alert.alert(serverUnreachableError);
         });
 }

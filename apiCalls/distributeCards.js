@@ -2,6 +2,7 @@ import {Alert} from "react-native";
 import {getGameData} from "./getGameData";
 import {getPlayerData} from "./getPlayerData";
 import { urlProd } from "./../config/urlConfig";
+import {serverUnreachableError} from "./constant";
 
 const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
                                   onChangeGameMessage, onChangecardLeft1, onChangecardLeft2,
@@ -49,6 +50,7 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
                 onChangeClubData)
         })
         .catch(error => {
+            console.log("distributeCards");
             Alert.alert(serverUnreachableError);
         });
 }

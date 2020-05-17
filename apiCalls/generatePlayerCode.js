@@ -1,6 +1,8 @@
 import {Alert} from "react-native";
 import {subscribeAndBind} from "../Pusher";
 import {urlProd} from "../config/urlConfig";
+import {getGameData} from "./getGameData";
+import {serverUnreachableError} from "./constant";
 
 const generatePlayerCode = function (numericId, gameCode, playerNickName, onChangePlayerCode,
                                      onChangeGameMessage,
@@ -42,6 +44,8 @@ const generatePlayerCode = function (numericId, gameCode, playerNickName, onChan
             }
         })
         .catch(error => {
+            console.log(error);
+            console.log("generatePlayerCode");
             Alert.alert(serverUnreachableError);
         });
 }

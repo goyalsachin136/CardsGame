@@ -1,5 +1,6 @@
 import {Alert} from "react-native";
 import {urlProd} from "../config/urlConfig";
+import {serverUnreachableError} from "./constant";
 
 const getCardStringList = function (array) {
     if (array === undefined || array === null) {
@@ -47,6 +48,7 @@ const getPlayerData = function (playerCode, onChangeGameMessage, onChangecardLef
             onChangeSpadeData(getCardStringList(json['cardTypeToCardDisplayStringMap']['SPADE']));
         })
         .catch(error => {
+            console.log("getPlayerData");
             Alert.alert(serverUnreachableError);
         });
 }

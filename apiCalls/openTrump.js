@@ -1,6 +1,7 @@
 import {Alert} from "react-native";
 import {getGameData} from "./getGameData";
 import {urlProd} from "../config/urlConfig";
+import {serverUnreachableError} from "./constant";
 
 const openTrump = function (playerCode, gameCode,
                             onChangeGameMessage, onChangecardLeft1, onChangecardLeft2,
@@ -27,6 +28,7 @@ const openTrump = function (playerCode, gameCode,
                 onChangeRelativePlayerToMove);
         })
         .catch(error => {
+            console.log("openTrump");
             Alert.alert(serverUnreachableError);
         });
 }

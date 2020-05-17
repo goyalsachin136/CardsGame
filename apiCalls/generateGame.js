@@ -1,5 +1,6 @@
 import {Alert} from "react-native";
 import {urlProd} from "../config/urlConfig";
+import {serverUnreachableError} from "./constant";
 
 const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlayerCode, onChangeGameCode,
                                onChangeGameMessage,
@@ -51,6 +52,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
                 onChangeClubData);*/
         })
         .catch(error => {
+            console.log("generateGame");
             Alert.alert(serverUnreachableError);
         });
 }

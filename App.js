@@ -24,9 +24,6 @@ function Separator() {
     return <View style={styles.separator} />;
 }
 
-const serverUnreachableError = "Looks like server is unreachable. Please try after some time";
-
-
 const playerNumericCodes = [
     {
         value:'1',
