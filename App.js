@@ -248,13 +248,13 @@ export default function App() {
     const [currentSet4, onChangeCurrentSet4] =
         React.useState(null);
     const [heartsCards, onChangeHeartData] =
-        React.useState('');
+        React.useState([]);
     const [diamondCards, onChangeDiamondData] =
-        React.useState('');
+        React.useState([]);
     const [spadeCards, onChangeSpadeData] =
-        React.useState('');
+        React.useState([]);
     const [clubCards, onChangeClubData] =
-        React.useState('');
+        React.useState([]);
     const [trumpCard, onChangeTrumpCard] =
         React.useState('');
 
@@ -483,7 +483,8 @@ export default function App() {
                     </Text>
                 }
                 {playerCode.length === 0 || (null !=  trumpDeclaredBy && '' !== trumpDeclaredBy && undefined !== trumpDeclaredBy) ? null :
-                <FlatList contentContainerStyle={styles.contentContainerStyleEqualSpace}
+                <FlatList columnWrapperStyle={styles.contentContainerStyleEqualSpace}
+                          numColumns={4}
                           data={[{'key':'♥',value: 1}, {'key':'♦',value: 2}, {'key':'♠',value: 3}, {'key':'♣',value: 4}]}
                           renderItem={({item}) => <Text onPress={() => setTrump( item.value, playerCode , gameCode,
                               onChangeGameMessage, onChangecardLeft1, onChangecardLeft2,
@@ -580,42 +581,56 @@ export default function App() {
                 : null
             }*/}
             <View style={styles.cards}>
-                <FlatList contentContainerStyle={styles.contentContainerStyle}
-                          data={getDataFromCards(heartsCards)}
+                {heartsCards.length !==0 ?
+                <FlatList
+                    key={"heartsCards" + heartsCards.length}
+                    numColumns={heartsCards.length}
+                    containerStyle={styles.contentContainerStyleEqualSpace}
+
+                          data={heartsCards}
                     renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeGameMessage,
                         onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                         onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,
                         onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                         onChangeClubData, onChangeRelativePlayerToMove)} style={styles.item}>{item.key}</Text>}
-                />
-                <FlatList contentContainerStyle={styles.contentContainerStyle}
-                          data={getDataFromCards(diamondCards)}
+                /> : null}
+                {diamondCards.length !==0 ?
+                <FlatList key={"diamondCards" + diamondCards.length}
+                          numColumns={diamondCards.length}
+                          containerStyle={styles.contentContainerStyleEqualSpace}
+                          data={diamondCards}
                           renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeGameMessage,
                               onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                               onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                               onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,
                               onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                               onChangeClubData, onChangeRelativePlayerToMove)} style={styles.item}>{item.key}</Text>}
-                />
-                <FlatList contentContainerStyle={styles.contentContainerStyle}
-                          data={getDataFromCards(spadeCards)}
+                /> : null}
+                {spadeCards.length !==0 ?
+                <FlatList key={"spadeCards" + spadeCards.length}
+                          numColumns={spadeCards.length}
+                          containerStyle={styles.contentContainerStyleEqualSpace}
+                          data={spadeCards}
                           renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeGameMessage,
                               onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                               onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                               onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,
                               onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                               onChangeClubData, onChangeRelativePlayerToMove)} style={styles.item}>{item.key}</Text>}
-                />
-                <FlatList contentContainerStyle={styles.contentContainerStyle}
-                          data={getDataFromCards(clubCards)}
+                /> : null}
+                {clubCards.length !==0 ?
+                <FlatList key={"clubCards" + clubCards.length}
+                          numColumns={clubCards.length}
+                          containerStyle={styles.contentContainerStyleEqualSpace}
+                          data={clubCards}
                           renderItem={({item}) => <Text onPress={() => moveCard( item.value, playerCode, gameCode,onChangeGameMessage,
                               onChangecardLeft1, onChangecardLeft2, onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4,
                               onChangesetsWon1, onChangesetsWon2, onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,
                               onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,
                               onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                               onChangeClubData, onChangeRelativePlayerToMove)} style={styles.item}>{item.key}</Text>}
-                />
+                /> : null}
             </View>
             {playerCode.length === 0 ? null :
             <Button title="Refresh my cards" color="#f194ff" onPress={() => getPlayerData(playerCode, onChangeGameMessage,
@@ -687,10 +702,10 @@ const resetGame = function (onChangeGameCode, onChangePlayerCode, onChangeCanGam
     onChangeCurrentSet2('');
     onChangeCurrentSet3('');
     onChangeCurrentSet4('');
-    onChangeHeartData('');
-    onChangeDiamondData('');
-    onChangeSpadeData('');
-    onChangeClubData('');
+    onChangeHeartData([]);
+    onChangeDiamondData([]);
+    onChangeSpadeData([]);
+    onChangeClubData([]);
     onChangeTrumpCard('');
     onChangesetsPointsWon1('');
     onChangesetsPointsWon2('');
@@ -699,7 +714,7 @@ const resetGame = function (onChangeGameCode, onChangePlayerCode, onChangeCanGam
 }
 
 const getDataFromCards = function (array) {
-    var answer = new Array();
+    var answer = [];
     /**
      * for (var i=0; i < array.length; i++) {
         ans.push()
@@ -968,7 +983,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
 
 const getCardStringList = function (array) {
     if (array === undefined || array === null) {
-        return new Array();
+        return [];
     }
     /*var ans = new Array();
 
@@ -1054,10 +1069,10 @@ const getPlayerData = function (playerCode, onChangeGameMessage, onChangecardLef
             //console.log(json['cardTypeToCardDisplayStringMap']['DIAMOND']);
             //console.log(json['cardTypeToCardDisplayStringMap']['HEART']);
             //console.log(json['cardTypeToCardDisplayStringMap']['SPADE']);
-            onChangeHeartData(getCardStringList(json['cardTypeToCardDisplayStringMap']['HEART']));
-            onChangeDiamondData(getCardStringList(json['cardTypeToCardDisplayStringMap']['DIAMOND']));
-            onChangeClubData(getCardStringList(json['cardTypeToCardDisplayStringMap']['CLUB']));
-            onChangeSpadeData(getCardStringList(json['cardTypeToCardDisplayStringMap']['SPADE']));
+            onChangeHeartData(getDataFromCards(getCardStringList(json['cardTypeToCardDisplayStringMap']['HEART'])));
+            onChangeDiamondData(getDataFromCards(getCardStringList(json['cardTypeToCardDisplayStringMap']['DIAMOND'])));
+            onChangeClubData(getDataFromCards(getCardStringList(json['cardTypeToCardDisplayStringMap']['CLUB'])));
+            onChangeSpadeData(getDataFromCards(getCardStringList(json['cardTypeToCardDisplayStringMap']['SPADE'])));
         })
         .catch(error => {
             Alert.alert(serverUnreachableError);

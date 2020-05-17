@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
     },
     contentContainerStyleEqualSpace :{
         flexDirection : "row",
-        flexWrap : "wrap",
-        justifyContent: "space-between"
+        flexWrap : "wrap"
     },
     setItemDown: {
         position: 'absolute',
