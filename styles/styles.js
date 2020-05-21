@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
         flexWrap : "wrap"
     },
     contentContainerStyleEqualSpace :{
-        flexDirection : "row",
-        flexWrap : "wrap"
+        justifyContent: "space-between"
     },
     setItemDown: {
         position: 'absolute',
@@ -49,6 +48,9 @@ const styles = StyleSheet.create({
         color: "#20232a",
         textAlign: "center",
         fontSize: 10,
+        fontWeight: "bold"
+    },
+    boldFont : {
         fontWeight: "bold"
     },
     setItem: {
@@ -75,10 +77,12 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     item: {
-        marginTop: 0,
-        marginRight: 4,
+        marginTop: 2,
+        marginRight: 5,
         paddingVertical: 16,
         paddingHorizontal: 8,
+        width: 45,
+        height: 60,
         borderWidth: 4,
         borderColor: "#20232a",
         borderRadius: 6,
@@ -201,9 +205,14 @@ const styles = StyleSheet.create({
         borderBottomColor: '#737373',
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
+    blueColor: {
+        backgroundColor: "#2196F3",
+    },
+    greyColor: {
+        backgroundColor: "#DDDDDD",
+    },
     buttonTop: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
         padding: 10,
         height: 40,
         marginTop: 10 ,

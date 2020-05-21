@@ -81,6 +81,21 @@ let isSubscribed = false;
 let subscribedForGameCode = null;
 let channel = null;
 
+const numberOfPlayersList = [
+    {
+        value:'2',
+        label:'2'
+    },
+    {
+        value:'3',
+        label:'3'
+    },
+    {
+        value:'4',
+        label:'4'
+    }
+]
+
 const playerNumericCodes = [
     {
         value:'1',
@@ -281,6 +296,7 @@ export default function App() {
     console.ignoredYellowBox = ['Setting a timer'];
     YellowBox.ignoreWarnings(['Setting a timer']);
     ignoreWarnings([
+        'VirtualizedLists',
         'flexWrap',
         'Setting a timer',
         'Beware the ides of March'
@@ -299,7 +315,7 @@ export default function App() {
                 </Text>
                 {playerCode.length !== 0 ?
                     <View style={styles.inline}>
-                        <TouchableOpacity style={styles.buttonTop} onPress={() => Alert.alert(
+                        <TouchableOpacity style={[styles.buttonTop, styles.greyColor]} onPress={() => Alert.alert(
                             'Start new game',
                             'This will delete all your progress. Do you want to continue ?',
                             [
@@ -310,17 +326,17 @@ export default function App() {
                                         onChangesetsPointsWon3,onChangesetsPointsWon4)},
                             ]
                         )}>
-                            <Text>Start new game</Text>
+                            <Text style={styles.boldFont}>Start new game</Text>
                         </TouchableOpacity>
                     </View> : null
                 }
                 {playerCode.length === 0 ?
                 <View style={styles.inline}>
-                    <TouchableOpacity style={styles.buttonTop} onPress={() => onChangeCreateGame(true)}>
-                        <Text>Create game</Text>
+                    <TouchableOpacity style={[styles.buttonTop, createGameOn ? styles.blueColor : styles.greyColor]} onPress={() => onChangeCreateGame(true)}>
+                        <Text style={styles.boldFont}>Create game</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonTop} onPress={() => onChangeCreateGame(false)}>
-                        <Text>Join game</Text>
+                    <TouchableOpacity style={[styles.buttonTop, !createGameOn ? styles.blueColor : styles.greyColor]} onPress={() => onChangeCreateGame(false)}>
+                        <Text style={styles.boldFont}>Join game</Text>
                     </TouchableOpacity>
                 </View> : null
                 }
@@ -341,13 +357,18 @@ export default function App() {
                     Enter number of players
                 </Text>) : null }
                 {createGameOn && (null == gameCode || gameCode === undefined || gameCode === '' || !canGameBeStarted) ? (
-                    <TextInput
-                        style={{ height: 40, width: 50, borderColor: 'gray', borderWidth: 1 }}
-                        onChangeText={text => onChangeTotalPlayers(text)}
-                        value={numberOfPlayers}
-                        keyboardType={'numeric'}
-                        maxLength = {1}
-                    />
+
+                    <View>
+                        <ChonseSelect
+                            height={55}
+                            style={{marginLeft: 20, marginBottom: 10}}
+                            data={numberOfPlayersList}
+                            initValue={numberOfPlayers}
+                            onPress={(item) => {
+                                onChangeTotalPlayers(item.value)
+                            }}
+                        />
+                    </View>
                 ) : null
                 }
                 {createGameOn && (null == gameCode || false || gameCode === '' || !canGameBeStarted)  ?
@@ -465,6 +486,8 @@ export default function App() {
                     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                     onChangeText={text => onChangeCardsPerPerson(text)}
                     value={numberOfCardsPerPerson}
+                    keyboardType={'numeric'}
+                    maxLength = {2}
                 />}
                 {canGameBeStarted || playerCode.length === 0 ? null :
                 <Button
@@ -777,7 +800,7 @@ const openTrump = function (playerCode, gameCode,
                            onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,
                             onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData,
                             onChangeRelativePlayerToMove) {
-    fetch('https://43bb4c92.ngrok.io/demo/openTrump?gameCode='+gameCode+"&playerCode="+playerCode, {
+    fetch('http://192.168.0.7:8080/openTrump?gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })
         .then(response => {
@@ -805,7 +828,7 @@ const moveCard = function (card, playerCode, gameCode,onChangeGameMessage,
                            onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard,
                            onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                            onChangeClubData, onChangeRelativePlayerToMove) {
-    fetch('https://43bb4c92.ngrok.io/demo/moveCard?card='
+    fetch('http://192.168.0.7:8080/moveCard?card='
         +card+'&gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })
@@ -855,7 +878,7 @@ const setTrump = function (trump, playerCode, gameCode,
     if (trump.length === 0) {
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/setTrump?trump='
+    fetch('http://192.168.0.7:8080/setTrump?trump='
         +trump+'&gameCode='+gameCode+"&playerCode="+playerCode, {
         method: 'POST',
     })
@@ -894,12 +917,12 @@ const distributeCards = function (numberOfCardsPerPlayer, gameCode, playerCode,
         return;
     }
     console.log(numberOfCardsPerPlayer);
-    var isNumber = console.log(isNaN(numberOfCardsPerPlayer));
+    var isNumber = isNaN(numberOfCardsPerPlayer);
     if (isNumber) {
-        Alert('Enter valid number');
+        Alert.alert("enter valid number '" + numberOfCardsPerPlayer + "' is not a valid number");
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/distributeCards?numberOfCardsPerPlayer='
+    fetch('http://192.168.0.7:8080/distributeCards?numberOfCardsPerPlayer='
         +numberOfCardsPerPlayer+'&gameCode='+gameCode, {
         method: 'POST',
     })
@@ -952,7 +975,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
     }
     //console.log("totalNumberOfCards " + totalNumberOfCards);
     //console.log("numberOfPlayers " + numberOfPlayers);
-    fetch('https://43bb4c92.ngrok.io/demo/addGame?numberOfPlayers='+numberOfPlayers+'&numberOfCards='+totalNumberOfCards, {
+    fetch('http://192.168.0.7:8080//addGame?numberOfPlayers='+numberOfPlayers+'&numberOfCards='+totalNumberOfCards, {
         method: 'POST',
     })
         .then(response => {
@@ -977,6 +1000,7 @@ const generateGame = function (totalNumberOfCards, numberOfPlayers, onChangePlay
                 onChangeClubData);*/
         })
         .catch(error => {
+            console.log(error);
             Alert.alert(serverUnreachableError);
         });
 }
@@ -1014,7 +1038,7 @@ const getCardSetStringListByPlayer = function (array, playerNumericCode) {
     }
     var ans = '';
     for (var i=0; i < array.length; i++) {
-        console.log(array[i]);
+        //console.log(array[i]);
         if (null !== array[i]['playerNickName'] && undefined !== array[i]['playerNickName']
             && array[i]['playerNickName'] !== '' && array[i]['playerNumericCode'] == playerNumericCode) {
             return (null !== array[i]['displayCard'] ? array[i]['displayCard'] : "")
@@ -1052,7 +1076,7 @@ const getPlayerData = function (playerCode, onChangeGameMessage, onChangecardLef
         return;
     }
     //console.log("playerCode " + playerCode);
-    fetch('https://43bb4c92.ngrok.io/demo/playerState?playerCode='+playerCode, {
+    fetch('http://192.168.0.7:8080/playerState?playerCode='+playerCode, {
         method: 'GET',
     })
         .then(response => {
@@ -1063,6 +1087,7 @@ const getPlayerData = function (playerCode, onChangeGameMessage, onChangecardLef
             //console.log(json);
             //console.log(json);
             if (json['cardTypeToCardDisplayStringMap'] === undefined) {
+                console.log("undefined");
                 return;
             }
             //console.log(json['cardTypeToCardDisplayStringMap']['CLUB']);
@@ -1075,6 +1100,7 @@ const getPlayerData = function (playerCode, onChangeGameMessage, onChangecardLef
             onChangeSpadeData(getDataFromCards(getCardStringList(json['cardTypeToCardDisplayStringMap']['SPADE'])));
         })
         .catch(error => {
+            console.log(error);
             Alert.alert(serverUnreachableError);
         });
 }
@@ -1097,7 +1123,7 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
         setRefreshing(false);
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/gameState?gameCode='+gameCode+'&playerCode='+playerCode, {
+    fetch('http://192.168.0.7:8080/gameState?gameCode='+gameCode+'&playerCode='+playerCode, {
         method: 'GET',
     })
         .then(response => {
@@ -1105,7 +1131,7 @@ const getGameData = function (gameCode, playerCode, onChangeGameMessage, onChang
             return response.json();
         })
         .then(json => {
-            console.log(json);
+            //console.log(json);
             setRefreshing(false);
             onChangeGameMessage(json['gameStateToDisplay']);
             if (undefined === json['playerInfoDTOS']) {
@@ -1198,7 +1224,7 @@ const generatePlayerCode = function (numericId, gameCode, playerNickName, onChan
         //Alert('Invalid numericId');
         return;
     }
-    fetch('https://43bb4c92.ngrok.io/demo/enterGame?numericId='+numericId+'&gameCode='+gameCode+'&nickName='+playerNickName, {
+    fetch('http://192.168.0.7:8080/enterGame?numericId='+numericId+'&gameCode='+gameCode+'&nickName='+playerNickName, {
         method: 'POST',
     })
         .then(response => {
