@@ -3,6 +3,12 @@ import Constants from "expo-constants";
 
 
 const styles = StyleSheet.create({
+    defaultButtonStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 50,
+        backgroundColor: '#2196F3',
+    },
     inline: {
         flex: 1,
         flexDirection: 'row',
