@@ -10,10 +10,11 @@
     "sdkVersion": "37.0.0",
     "android": {
       "icon": "./assets/icon.png",
-      "versionCode": 1,
-      "package": "com.cardsGame.App"
+      "versionCode": 3,
+      "package": "com.cardsGame.App",
+      "permissions" : []
     },
-    "version": "2.0",
+    "version": "3.1",
     "orientation": "portrait",
     "icon": "./assets/ios.png",
     "splash": {
@@ -29,8 +30,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "panna2.0"
+      "bundleIdentifier": "panna3.1"
     },
-    "description": "508 game, Table View, Sound on player entry, Create Game, Join game option on game entry. When player has to move blink effect"
+    "description": "508 game, backend server changed , all buttons loader added"
   }
 }
