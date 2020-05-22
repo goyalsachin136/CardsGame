@@ -495,19 +495,23 @@ export default function App() {
                         onChangeRelativePlayerToMove)}
                 ><Text>Refresh game data</Text></SpinnerButton>: null}
                 {canGameBeStarted || playerCode.length === 0 ? null :
-                <Text style={styles.title}>
-                    Select number of cards per person to distribute
-                </Text>}
-                {canGameBeStarted || playerCode.length === 0 ? null :
+                    <View>
+                        <Text style={styles.title}>
+                            Select number of cards per person to distribute
+                        </Text>
+                        <Separator />
+                    </View>
+                }
+                {/*{canGameBeStarted || playerCode.length === 0 ? null :
                 <TextInput
                     style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                     onChangeText={text => onChangeCardsPerPerson(text)}
                     value={numberOfCardsPerPerson}
                     keyboardType={'numeric'}
                     maxLength = {2}
-                />}
+                />}*/}
                 {canGameBeStarted || playerCode.length === 0 ? null :
-                <Button
+                /*<Button
                     title="Distribute cards"
                     color="#f194ff"
                     onPress={() => distributeCards( numberOfCardsPerPerson, gameCode, playerCode,
@@ -516,7 +520,22 @@ export default function App() {
                         onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove, onChangeTrumpDeclaredBy,
                         onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                         onChangeClubData, onChangeRelativePlayerToMove, onChangeRefreshGameDataLoader)}
-                />}
+                />*/
+                    <View>
+                        <FlatList columnWrapperStyle={styles.contentContainerStyleEqualSpace}
+                                  numColumns={4}
+                                  data={[{'key':'1',value: 1}, {'key':'2',value: 2}, {'key':'3',value: 3}, {'key':'5',value: 5}]}
+                                  renderItem={({item}) => <Text onPress={() => distributeCards( item.value, gameCode, playerCode,
+                                      onChangeGameMessage, onChangecardLeft1, onChangecardLeft2,
+                                      onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4, onChangesetsWon1, onChangesetsWon2,
+                                      onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove, onChangeTrumpDeclaredBy,
+                                      onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
+                                      onChangeClubData, onChangeRelativePlayerToMove, onChangeRefreshGameDataLoader)} style={styles.item}>{item.key}</Text>}
+                        />
+                        <Separator />
+                        <Separator />
+                    </View>
+                    }
                 {playerCode.length === 0 || (null != trumpDeclaredBy && undefined != trumpDeclaredBy && trumpDeclaredBy.length !== 0) ? null :
                     <Text style={styles.title}>
                         Choose trump
