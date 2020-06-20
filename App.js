@@ -504,25 +504,7 @@ export default function App() {
                         <Separator />
                     </View>
                 }
-                {/*{canGameBeStarted || playerCode.length === 0 ? null :
-                <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={text => onChangeCardsPerPerson(text)}
-                    value={numberOfCardsPerPerson}
-                    keyboardType={'numeric'}
-                    maxLength = {2}
-                />}*/}
                 {canGameBeStarted || playerCode.length === 0 ? null :
-                /*<Button
-                    title="Distribute cards"
-                    color="#f194ff"
-                    onPress={() => distributeCards( numberOfCardsPerPerson, gameCode, playerCode,
-                        onChangeGameMessage, onChangecardLeft1, onChangecardLeft2,
-                        onChangecardLeft3, onChangecardLeft4, onChangenickName1, onChangenickName2, onChangenickName3, onChangenickName4, onChangesetsWon1, onChangesetsWon2,
-                        onChangesetsWon3, onChangesetsWon4, onChangesetsPointsWon1, onChangesetsPointsWon2, onChangesetsPointsWon3, onChangesetsPointsWon4,  onChangePlayerToMove, onChangeTrumpDeclaredBy,
-                        onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
-                        onChangeClubData, onChangeRelativePlayerToMove, onChangeRefreshGameDataLoader)}
-                />*/
                     <View>
                         <FlatList columnWrapperStyle={styles.contentContainerStyleEqualSpace}
                                   numColumns={4}
@@ -796,7 +778,7 @@ const getDataFromCards = function (array) {
      */
     for (var i =0; i < array.length; i++) {
         var x = new Object();
-        x['key'] = getCardFromCardType(array[i]['cardType']) + array[i]['displayCode'];
+        x['key'] = getCardFromCardType(array[i]['cardType']) + "\n" + array[i]['displayCode'];
         x['value'] = array[i]['card'];
         answer.push(x);
     }
