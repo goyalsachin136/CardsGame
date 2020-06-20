@@ -323,7 +323,7 @@ export default function App() {
             <View>
                 <FlashMessage position="top" />
                 <Text style={styles.marginAround}>
-                    Welcome to PANNA Version 2.0
+                    Welcome to PANNA Version 2.1
                 </Text>
                 {playerCode.length !== 0 ?
                     <View style={styles.inline}>
@@ -1286,7 +1286,7 @@ const generatePlayerCode = function (numericId, gameCode, playerNickName, onChan
                                      onChangeRefreshPlayerDataLoader) {
     //Alert.alert('sachni');
     if (numericId === undefined || numericId === '' || numericId.isNaN) {
-        //Alert('Invalid numericId');
+        Alert.alert('Please choose player numeric code');
         return;
     }
     onChangeJoinGameLoader(true);
