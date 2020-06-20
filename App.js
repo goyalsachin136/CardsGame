@@ -323,7 +323,7 @@ export default function App() {
             <View>
                 <FlashMessage position="top" />
                 <Text style={styles.marginAround}>
-                    Welcome to PANNA Version 2.1
+                    Welcome to PANNA Version 4
                 </Text>
                 {playerCode.length !== 0 ?
                     <View style={styles.inline}>

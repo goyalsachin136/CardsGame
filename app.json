@@ -10,11 +10,11 @@
     "sdkVersion": "37.0.0",
     "android": {
       "icon": "./assets/icon.png",
-      "versionCode": 3,
+      "versionCode": 4,
       "package": "com.cardsGame.App",
       "permissions" : []
     },
-    "version": "3.1",
+    "version": "4.0",
     "orientation": "portrait",
     "icon": "./assets/ios.png",
     "splash": {
@@ -30,7 +30,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "panna3.1"
+      "bundleIdentifier": "panna4.0"
     },
     "description": "508 game, backend server changed , all buttons loader added"
   }
