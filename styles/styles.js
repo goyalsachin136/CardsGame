@@ -84,6 +84,12 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold"
     },
+    red : {
+      color: 'red'
+    },
+    black : {
+        color: 'black'
+    },
     item: {
         marginTop: 2,
         marginRight: 5,

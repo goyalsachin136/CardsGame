@@ -537,7 +537,8 @@ export default function App() {
                               onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,
                               onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData,
                               onChangeRelativePlayerToMove, onChangeRefreshGameDataLoader,
-                              onChangeRefreshPlayerDataLoader)} style={styles.item}>{item.key}</Text>}
+                              onChangeRefreshPlayerDataLoader)} style={[styles.item,
+                              (item.value=== 1 || item.value === 2) ? styles.red : styles.black]}>{item.key}</Text>}
                 />}
                 {/*{null !=  trumpDeclaredBy ? null :
                 <Button
@@ -639,7 +640,7 @@ export default function App() {
                         onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,
                         onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                         onChangeClubData, onChangeRelativePlayerToMove, onChangeRefreshGameDataLoader,
-                        onChangeRefreshPlayerDataLoader)} style={styles.item}>{item.key}</Text>}
+                        onChangeRefreshPlayerDataLoader)} style={[styles.item,  styles.red]}>{item.key}</Text>}
                 /> : null}
                 {diamondCards.length !==0 ?
                 <FlatList key={"diamondCards" + diamondCards.length}
@@ -652,7 +653,7 @@ export default function App() {
                               onChangePlayerToMove, onChangeTrumpDeclaredBy, onChangeCanGameBeStarted, onChangeTrumpCard, onChangeCurrentSet, onChangeCurrentSet1,  onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing,
                               onChangeHeartData, onChangeSpadeData, onChangeDiamondData,
                               onChangeClubData, onChangeRelativePlayerToMove, onChangeRefreshGameDataLoader,
-                              onChangeRefreshPlayerDataLoader)} style={styles.item}>{item.key}</Text>}
+                              onChangeRefreshPlayerDataLoader)} style={[styles.item, styles.red]}>{item.key}</Text>}
                 /> : null}
                 {spadeCards.length !==0 ?
                 <FlatList key={"spadeCards" + spadeCards.length}
