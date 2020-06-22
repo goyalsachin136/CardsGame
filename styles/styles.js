@@ -188,12 +188,21 @@ const styles = StyleSheet.create({
         width: '30%' /* Set the width of the positioned div */,
         fontWeight: "bold"
     },
-    boldTitle: {
-        marginTop: 40,
+    boldTitle1: {
+        marginTop: 2,
+        marginBottom: 2,
         fontWeight: 'bold',
         textAlign: 'center',
         marginVertical: 0,
         fontSize: 20
+    },
+    boldTitle: {
+        marginTop: 5,
+        marginBottom: 5,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginVertical: 0,
+        fontSize: 30
     },
     title: {
         textAlign: 'center',

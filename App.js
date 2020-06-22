@@ -399,22 +399,19 @@ export default function App() {
                     ><Text style={styles.buttonText}>Generate game</Text>
                     </SpinnerButton>) : null }
             </View>
-            {!canGameBeStarted?
-            <BlinkView blinking={true} delay={100}>
-                <Text>{gameMessage}</Text>
-            </BlinkView>: null}
-            {null != trumpDeclaredBy && '' !== trumpDeclaredBy ?
-            <Text style={styles.title}>
-                Trump is declared by {trumpDeclaredBy}
-            </Text>: null
-            }
+            {!canGameBeStarted? <Text>{gameMessage}</Text> : null}
             {null != gameCode && '' !== gameCode ?
             <Text style={styles.boldTitle} selectable>
                 Game code is {gameCode}
             </Text> : null
             }
+            {null != trumpDeclaredBy && '' !== trumpDeclaredBy ?
+                <Text style={styles.boldTitle1}>
+                    Trump is declared by {trumpDeclaredBy}
+                </Text>: null
+            }
             {trumpCard === undefined || trumpCard === null || trumpCard === ''  ? null :
-            <Text style={styles.title}>
+            <Text style={styles.boldTitle1}>
                 Trump card ({getCardFromCardType(trumpCard)})
             </Text>}
             {/*<Text style={styles.title}>
@@ -496,7 +493,7 @@ export default function App() {
                         onChangeCurrentSet2,  onChangeCurrentSet3, onChangeCurrentSet4,  setRefreshing, onChangeHeartData, onChangeSpadeData, onChangeDiamondData, onChangeClubData,
                         onChangeRelativePlayerToMove)}
                 ><Text>Refresh game data</Text></SpinnerButton>: null}
-                {canGameBeStarted || playerCode.length === 0 ? null :
+                {/*{canGameBeStarted || playerCode.length === 0 ? null :
                     <View>
                         <Text style={styles.title}>
                             Select number of cards per person to distribute
@@ -520,13 +517,17 @@ export default function App() {
                         <Separator />
                         <Separator />
                     </View>
-                    }
-                {playerCode.length === 0 || (null != trumpDeclaredBy && undefined != trumpDeclaredBy && trumpDeclaredBy.length !== 0) ? null :
-                    <Text style={styles.title}>
+                    }*/}
+                {playerCode.length === 0
+                || (null != trumpDeclaredBy && undefined != trumpDeclaredBy && trumpDeclaredBy.length !== 0)
+                || cardLeft1 !== 5 ? null :
+                    <Text style={styles.boldTitle}>
                         Choose trump
                     </Text>
                 }
-                {playerCode.length === 0 || (null !=  trumpDeclaredBy && '' !== trumpDeclaredBy && undefined !== trumpDeclaredBy) ? null :
+                {playerCode.length === 0 ||
+                (null !=  trumpDeclaredBy && '' !== trumpDeclaredBy && undefined !== trumpDeclaredBy)
+                || cardLeft1 !== 5 ? null :
                 <FlatList columnWrapperStyle={styles.contentContainerStyleEqualSpace}
                           numColumns={4}
                           data={[{'key':'♥',value: 1}, {'key':'♦',value: 2}, {'key':'♠',value: 3}, {'key':'♣',value: 4}]}
